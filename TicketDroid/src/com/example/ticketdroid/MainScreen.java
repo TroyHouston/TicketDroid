@@ -41,6 +41,7 @@ public class MainScreen extends Activity {
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
+		// I just added a comment. Wow!
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
