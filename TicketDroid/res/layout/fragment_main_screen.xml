@@ -19,7 +19,8 @@
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/section_label"
         android:layout_centerHorizontal="true"
-        android:ems="10" >
+        android:ems="10"
+        android:inputType="text" >
 
         <requestFocus />
     </EditText>
@@ -42,6 +43,7 @@
         android:layout_below="@+id/passwordField"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
-        android:text="Button" />
+        android:text="@string/loginButtonText"
+        android:onClick="attemptLogin"/>
 
 </RelativeLayout>
