@@ -1,15 +1,32 @@
 package com.example.ticketdroid;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.nio.MappedByteBuffer;
+import java.nio.channels.FileChannel;
+import java.nio.charset.Charset;
 import java.util.Locale;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.text.Editable;
+import android.util.JsonReader;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -20,6 +37,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainScreen extends Activity {
+
+	static Database db = new Database();
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -40,15 +59,87 @@ public class MainScreen extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main_screen);
 
+		try {
+
+			FileInputStream stream = openFileInput("database");
+
+			String jsonStr = null;
+			try {
+				FileChannel fc = stream.getChannel();
+				MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
+
+				jsonStr = Charset.defaultCharset().decode(bb).toString();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					stream.close();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+
+			if (jsonStr.length() != 0) {
+				JSONObject jsonObj = new JSONObject(jsonStr);
+
+				// Getting data JSON Array nodes
+				JSONArray data  = jsonObj.getJSONArray("data");
+
+				for (int i = 0; i < data.length(); i++) {
+					JSONObject c = data.getJSONObject(i);
+
+					String user = c.getString("username");
+					String password = c.getString("password");
+					db.addAccount(user, password);
+				}
+
+			}
+
+
+		} catch (JSONException e){
+			e.printStackTrace();
+			throw new Error("Failed to load the database. Please contact the admin");
+		} catch (FileNotFoundException e) {
+			try {
+				FileOutputStream fos = openFileOutput("database", MODE_PRIVATE);
+			} catch (FileNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				throw new Error("Failed to create the database. Please contact the admin");
+			}
+		}
+
+
+
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
-		// I just added a comment. Wow!
+		// I just added a comment. Cow!
 		mSectionsPagerAdapter = new SectionsPagerAdapter(getFragmentManager());
 
 		// Set up the ViewPager with the sections adapter.
 		mViewPager = (ViewPager) findViewById(R.id.pager);
 		mViewPager.setAdapter(mSectionsPagerAdapter);
 
+	}
+
+	public Account readUser(JsonReader reader) throws IOException {
+		String username = null;
+		String password = null;
+
+		reader.beginObject();
+		while (reader.hasNext()) {
+			String name = reader.nextName();
+			if (name.equals("username")) {
+				username = reader.nextString();
+			} else if (name.equals("password")) {
+				password = reader.nextString();
+			} else {
+				reader.skipValue();
+			}
+		}
+		reader.endObject();
+		return new Account(username, password);
 	}
 
 	@Override
@@ -73,8 +164,15 @@ public class MainScreen extends Activity {
 
 	public void attemptLogin(View view) {
 		// This happens when the loginButton is pressed.
-		EditText userField = (EditText)findViewById(R.id.userField);
-		userField.append("I wonder if the button worked?");
+		Editable user = ((EditText)findViewById(R.id.userField)).getText();
+		Editable password = ((EditText)findViewById(R.id.passwordField)).getText();
+
+		if (db.validUser(user.toString(), password.toString()))
+			Log.w("somkething", "else");
+
+		Log.w("somkething", "other");
+
+
 	}
 
 	/**
@@ -98,7 +196,7 @@ public class MainScreen extends Activity {
 		@Override
 		public int getCount() {
 			// Show 3 total pages.
-			return 3;
+			return 1;
 		}
 
 		@Override
@@ -107,10 +205,7 @@ public class MainScreen extends Activity {
 			switch (position) {
 			case 0:
 				return getString(R.string.title_section1).toUpperCase(l);
-			case 1:
-				return getString(R.string.title_section2).toUpperCase(l);
-			case 2:
-				return getString(R.string.title_section3).toUpperCase(l);
+
 			}
 			return null;
 		}
@@ -147,8 +242,6 @@ public class MainScreen extends Activity {
 					container, false);
 			TextView textView = (TextView) rootView
 					.findViewById(R.id.section_label);
-			textView.setText(Integer.toString(getArguments().getInt(
-					ARG_SECTION_NUMBER)));
 			return rootView;
 		}
 	}

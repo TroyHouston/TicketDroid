@@ -1,14 +1,15 @@
-package tests;
+package com.example.ticketdroid;
 
 import java.util.HashMap;
 import java.util.Locale;
 
 public class Database {
 
-	private HashMap<String,String> database;
+	//Username -> Account
+	private HashMap<String,Account> database;
 
 	public Database(){
-		database = new HashMap<String,String>();
+		database = new HashMap<String,Account>();
 	}
 
 	/**
@@ -26,7 +27,7 @@ public class Database {
 		//No special characters in pw?
 
 
-		database.put(user.toLowerCase(Locale.ENGLISH), password);
+		database.put(user.toLowerCase(Locale.ENGLISH), new Account(user.toLowerCase(Locale.ENGLISH),password));
 		return true;
 
 	}
@@ -39,7 +40,7 @@ public class Database {
 	 */
 	public boolean validUser(String user, String password) {
 		return database.containsKey(user.toLowerCase(Locale.ENGLISH))
-				&& database.get(user.toLowerCase(Locale.ENGLISH)).equals(password);
+				&& database.get(user.toLowerCase(Locale.ENGLISH)).getPassword().equals(password);
 	}
 
 
