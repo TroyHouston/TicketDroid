@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 public class MainScreen extends Activity {
@@ -68,6 +69,12 @@ public class MainScreen extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	public void attemptLogin(View view) {
+		// This happens when the loginButton is pressed.
+		EditText userField = (EditText)findViewById(R.id.userField);
+		userField.append("I wonder if the button worked?");
 	}
 
 	/**
