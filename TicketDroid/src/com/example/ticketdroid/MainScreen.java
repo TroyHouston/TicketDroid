@@ -38,7 +38,7 @@ public class MainScreen extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_screen);
+		setContentView(R.layout.activity_login_screen);
 
 		// Create the adapter that will return a fragment for each of the three
 		// primary sections of the activity.
@@ -143,7 +143,7 @@ public class MainScreen extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main_screen,
+			View rootView = inflater.inflate(R.layout.fragment_login_screen,
 					container, false);
 			TextView textView = (TextView) rootView
 					.findViewById(R.id.section_label);

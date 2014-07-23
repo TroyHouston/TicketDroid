@@ -22,6 +22,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.example.ticketdroid.LandingScreen"
+            android:label="@string/title_activity_landing_screen" >
+        </activity>
+        <activity
+            android:name="com.example.ticketdroid.Register"
+            android:label="@string/title_activity_register" >
+        </activity>
+        <activity
+            android:name="com.example.ticketdroid.TicketScreen"
+            android:label="@string/title_activity_ticket_screen" >
+        </activity>
+        <activity
+            android:name="com.example.ticketdroid.DetailedScreen"
+            android:label="@string/title_activity_detailed_screen" >
+        </activity>
+        <activity
+            android:name="com.example.ticketdroid.QRScreen"
+            android:label="@string/title_activity_qrscreen" >
+        </activity>
     </application>
 
 </manifest>
