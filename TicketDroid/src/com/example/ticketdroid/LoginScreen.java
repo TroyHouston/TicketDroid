@@ -19,7 +19,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainScreen extends Activity {
+public class LoginScreen extends Activity {
 
 	/**
 	 * The {@link android.support.v4.view.PagerAdapter} that will provide
