@@ -42,8 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/passwordField"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="29dp"
-        android:text="@string/loginButtonText"
-        android:onClick="attemptLogin"/>
+        android:onClick="attemptLogin"
+        android:text="@string/loginButtonText" />
 
 </RelativeLayout>

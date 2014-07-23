@@ -1,11 +1,9 @@
 package com.example.ticketdroid;
 
-import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.MappedByteBuffer;
 import java.nio.channels.FileChannel;
 import java.nio.charset.Charset;
@@ -16,18 +14,14 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Context;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.util.JsonReader;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +30,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainScreen extends Activity {
+public class LoginScreen extends Activity {
 
 	static Database db = new Database();
 
@@ -57,7 +51,7 @@ public class MainScreen extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main_screen);
+		setContentView(R.layout.activity_login_screen);
 
 		try {
 
@@ -238,7 +232,7 @@ public class MainScreen extends Activity {
 		@Override
 		public View onCreateView(LayoutInflater inflater, ViewGroup container,
 				Bundle savedInstanceState) {
-			View rootView = inflater.inflate(R.layout.fragment_main_screen,
+			View rootView = inflater.inflate(R.layout.fragment_login_screen,
 					container, false);
 			TextView textView = (TextView) rootView
 					.findViewById(R.id.section_label);
