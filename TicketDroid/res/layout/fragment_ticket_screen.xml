@@ -21,6 +21,7 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="88dp"
+        android:onClick="goToDetailedScreen"
         android:text="Detailed" />
 
 </RelativeLayout>

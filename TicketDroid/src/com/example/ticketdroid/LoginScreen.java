@@ -17,6 +17,7 @@ import android.accounts.Account;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
+import android.content.Intent;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
@@ -162,8 +163,15 @@ public class LoginScreen extends Activity {
 		Editable user = ((EditText)findViewById(R.id.userField)).getText();
 		Editable password = ((EditText)findViewById(R.id.passwordField)).getText();
 
-		if (db.validUser(user.toString(), password.toString()))
+		if (db.validUser(user.toString(), password.toString())){
 			Log.w("somkething", "else");
+
+			//Go to ticketScreen if successful
+			Intent intent = new Intent(this, TicketScreen.class);
+
+			startActivity(intent);
+
+		}
 
 		Log.w("somkething", "other");
 

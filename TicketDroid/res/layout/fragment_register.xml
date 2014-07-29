@@ -19,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
+        android:onClick="goToLogin"
         android:layout_marginBottom="94dp"
         android:text="Main" />
 

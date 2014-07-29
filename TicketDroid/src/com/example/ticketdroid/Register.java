@@ -3,6 +3,7 @@ package com.example.ticketdroid;
 import android.app.Activity;
 import android.app.ActionBar;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -59,6 +60,12 @@ public class Register extends Activity {
 					container, false);
 			return rootView;
 		}
+	}
+
+	public void goToLogin(View view){
+		Intent intent = new Intent(this, LoginScreen.class);
+
+		startActivity(intent);
 	}
 
 }
