@@ -71,4 +71,10 @@ public class LandingScreen extends Activity {
 		startActivity(intent);
 	}
 
+	public void goToRegister(View view){
+		Intent intent = new Intent(this, Register.class);
+
+		startActivity(intent);
+	}
+
 }
