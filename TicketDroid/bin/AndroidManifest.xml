@@ -18,15 +18,15 @@
         <activity
             android:name="com.example.ticketdroid.LoginScreen"
             android:label="@string/app_name" >
+        </activity>
+        <activity
+            android:name="com.example.ticketdroid.LandingScreen"
+            android:label="@string/title_activity_landing_screen" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity
-            android:name="com.example.ticketdroid.LandingScreen"
-            android:label="@string/title_activity_landing_screen" >
         </activity>
         <activity
             android:name="com.example.ticketdroid.Register"
