@@ -26,6 +26,7 @@
         android:layout_alignBottom="@+id/registerButton"
         android:layout_marginLeft="44dp"
         android:layout_toRightOf="@+id/registerButton"
+        android:onClick="goToLogin" 
         android:text="Login" />
 
 </RelativeLayout>
