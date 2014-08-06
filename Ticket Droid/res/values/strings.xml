@@ -12,6 +12,6 @@
     <string name="title_activity_login_page">LoginPage</string>
     <string name="forgotButton">Forgot Details?</string>
     <string name="emailText">Email Address</string>
-    <string name="passwordText">password</string>
+    <string name="passwordText">Password</string>
 
 </resources>

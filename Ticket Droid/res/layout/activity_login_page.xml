@@ -26,8 +26,8 @@
         android:layout_alignParentTop="true"
         android:layout_marginTop="34dp"
         android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="@string/emailText" />
+        android:hint="@string/emailText"
+        android:inputType="textEmailAddress" />
 
     <EditText
         android:id="@+id/password"
@@ -38,8 +38,8 @@
         android:layout_below="@+id/emailaddress"
         android:layout_marginTop="16dp"
         android:ems="10"
-        android:inputType="textPassword"
-        android:text="@string/passwordText" >
+        android:hint="@string/passwordText"
+        android:inputType="textPassword" >
 
     </EditText>
 
