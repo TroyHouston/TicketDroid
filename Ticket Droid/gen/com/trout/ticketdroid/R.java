@@ -23,8 +23,10 @@ public final class R {
     }
     public static final class drawable {
         public static final int ic_launcher=0x7f020000;
+        public static final int ic_menu_btn_add=0x7f020001;
     }
     public static final class id {
+        public static final int action_add=0x7f080009;
         public static final int action_settings=0x7f080008;
         public static final int confirmPassword=0x7f080007;
         public static final int emailaddress=0x7f080004;
@@ -52,6 +54,7 @@ public final class R {
     public static final class string {
         public static final int TEST=0x7f050002;
         public static final int action_settings=0x7f050001;
+        public static final int add_ticket_ab=0x7f05000f;
         public static final int app_name=0x7f050000;
         public static final int confirmPasswordText=0x7f05000d;
         public static final int emailText=0x7f05000a;
@@ -89,6 +92,7 @@ public final class R {
         Base application theme for API 14+. This theme completely replaces
         AppBaseTheme from BOTH res/values/styles.xml and
         res/values-v11/styles.xml on API 14+ devices.
+
 
     
          */

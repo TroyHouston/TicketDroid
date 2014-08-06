@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
@@ -17,27 +16,6 @@
     <string name="title_activity_register_page">RegisterPage</string>
     <string name="confirmPasswordText">Confirm Password</string>
     <string name="title_activity_ticket_list_page">TicketListPage</string>
+    <string name="add_ticket_ab">Add Ticket</string>
 
 </resources>
-=======
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="app_name">Ticket Droid</string>
-    <string name="action_settings">Settings</string>
-    <string name="TEST">test</string>
-    <string name="title_activity_landing_page">LandingPage</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="introText">&quot;This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n&quot;</string>
-    <string name="loginButton">Login</string>
-    <string name="registerButton">Register</string>
-    <string name="title_activity_login_page">LoginPage</string>
-    <string name="forgotButton">Forgot Details?</string>
-    <string name="emailText">Email Address</string>
-    <string name="passwordText">Password</string>
-    <string name="title_activity_register_page">RegisterPage</string>
-    <string name="confirmPasswordText">Confirm Password</string>
-    <string name="title_activity_ticket_list_page">TicketListPage</string>
-
-</resources>
->>>>>>> refs/remotes/origin/Android-L
