@@ -9,5 +9,9 @@
     <string name="introText">&quot;This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n&quot;</string>
     <string name="loginButton">Login</string>
     <string name="registerButton">Register</string>
+    <string name="title_activity_login_page">LoginPage</string>
+    <string name="forgotButton">Forgot Details?</string>
+    <string name="emailText">Email Address</string>
+    <string name="passwordText">password</string>
 
 </resources>

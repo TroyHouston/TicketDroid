@@ -26,6 +26,10 @@
             android:name=".LandingPage"
             android:label="@string/title_activity_landing_page" >
         </activity>
+        <activity
+            android:name=".LoginPage"
+            android:label="@string/title_activity_login_page" >
+        </activity>
     </application>
 
 </manifest>

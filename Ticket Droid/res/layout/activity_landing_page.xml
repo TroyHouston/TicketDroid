@@ -29,7 +29,8 @@
         android:layout_marginRight="20dp"
         android:textColor="#3F51B5"
         android:background="?android:attr/selectableItemBackground"
-        android:text="@string/loginButton" />
+        android:text="@string/loginButton"
+        android:onClick="goToLoginPage" />
 
     <TextView
         android:id="@+id/introText"
