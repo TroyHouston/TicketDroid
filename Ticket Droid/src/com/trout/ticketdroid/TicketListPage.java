@@ -1,26 +1,22 @@
 package com.trout.ticketdroid;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
-public class LandingPage extends Activity {
+public class TicketListPage extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_landing_page);
+		setContentView(R.layout.activity_ticket_list_page);
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.landing_page, menu);
+		getMenuInflater().inflate(R.menu.ticket_list_page, menu);
 		return true;
 	}
 
@@ -34,15 +30,5 @@ public class LandingPage extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	public void goToLoginPage(View view) {
-		Intent intent = new Intent(this, LoginPage.class);
-        startActivity(intent);
-	}
-	
-	public void goToRegisterPage(View view) {
-		Intent intent = new Intent(this, RegisterPage.class);
-        startActivity(intent);
 	}
 }
