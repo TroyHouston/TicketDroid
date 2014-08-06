@@ -13,5 +13,8 @@
     <string name="forgotButton">Forgot Details?</string>
     <string name="emailText">Email Address</string>
     <string name="passwordText">Password</string>
+    <string name="title_activity_register_page">RegisterPage</string>
+    <string name="confirmPasswordText">Confirm Password</string>
+    <string name="title_activity_ticket_list_page">TicketListPage</string>
 
 </resources>
