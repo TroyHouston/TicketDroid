@@ -17,7 +17,7 @@
         android:layout_marginBottom="31dp"
         android:layout_marginLeft="20dp"
         android:background="?android:attr/selectableItemBackground"
-        android:text="Register" />
+        android:text="@string/registerButton" />
 
     <Button
         android:id="@+id/loginButton"
@@ -29,7 +29,7 @@
         android:layout_marginRight="20dp"
         android:textColor="#3F51B5"
         android:background="?android:attr/selectableItemBackground"
-        android:text="Login" />
+        android:text="@string/loginButton" />
 
     <TextView
         android:id="@+id/introText"
@@ -38,6 +38,7 @@
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="44dp"
-        android:text="This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n " />
-    
+        android:text="@string/introText"
+        />
+
 </RelativeLayout>
