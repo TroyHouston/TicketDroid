@@ -7,6 +7,9 @@ import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import java.util.ArrayList;
 
 public class TicketPageMain extends FragmentActivity implements ActionBar.TabListener {
 	private ViewPager viewPager;
@@ -20,22 +23,44 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.ticket_page_main);
 
+        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+
+        // improve performance if you know that changes in content
+        // do not change the size of the RecyclerView
+        recyclerView.setHasFixedSize(true);
+
+        // use a linear layout manager
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(mLayoutManager);
+
+        // Data set used by the adapter. This data will be displayed.
+        ArrayList<String> myDataset = new ArrayList<String>();
+        for (int i= 0; i < 70; i++){
+            myDataset.add("Diana " + i);
+        }
+
+
 		// Initilization
 		viewPager = (ViewPager) findViewById(R.id.pager);
 		actionBar = getActionBar();
 		mAdapter = new TabsPagerAdapter(getSupportFragmentManager());
 
+
+        // Create the adapter
+        RecyclerView.Adapter adapter = new TicketListAdapter(viewPager.getContext(), myDataset);
+        recyclerView.setAdapter(adapter);
+
 		viewPager.setAdapter(mAdapter);
 		actionBar.setHomeButtonEnabled(false);
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);		
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 
 		// Adding Tabs
 		for (String tab_name : tabs) {
 			actionBar.addTab(actionBar.newTab().setText(tab_name)
 					.setTabListener(this));
 		}
-		
-	
+
+
 		/**
 		 * on swiping the viewpager make respective tab selected
 		 * */
