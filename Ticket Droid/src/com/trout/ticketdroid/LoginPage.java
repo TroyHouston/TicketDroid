@@ -35,7 +35,7 @@ public class LoginPage extends Activity {
 	}
 	
 	public void goToTicketPage(View view){
-		Intent intent = new Intent(this, TicketListPage.class);
+		Intent intent = new Intent(this, TicketPageMain.class);
 
 		startActivity(intent);
 	}

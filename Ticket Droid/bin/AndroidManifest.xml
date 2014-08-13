@@ -20,11 +20,12 @@
         <activity
             android:name=".LandingPage"
             android:label="@string/title_activity_landing_page" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                 <intent-filter>
+           <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+              <category android:name="android.intent.category.LAUNCHER" />
+           </intent-filter>
+  
         </activity>
         <activity
             android:name=".LoginPage"
@@ -38,6 +39,11 @@
             android:name=".TicketListPage"
             android:label="@string/title_activity_ticket_list_page" >
         </activity>
+        <activity
+            android:name=".TicketPageMain"
+            android:label="@string/title_activity_ticket_page_main" >
+        </activity>
     </application>
+
 
 </manifest>

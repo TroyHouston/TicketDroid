@@ -26,13 +26,14 @@ public final class R {
         public static final int ic_menu_btn_add=0x7f020001;
     }
     public static final class id {
-        public static final int action_add=0x7f080009;
-        public static final int action_settings=0x7f080008;
+        public static final int action_add=0x7f08000a;
+        public static final int action_settings=0x7f080009;
         public static final int confirmPassword=0x7f080007;
         public static final int emailaddress=0x7f080004;
         public static final int forgotButton=0x7f080003;
         public static final int introText=0x7f080001;
         public static final int loginButton=0x7f080002;
+        public static final int pager=0x7f080008;
         public static final int password=0x7f080005;
         public static final int registerButton=0x7f080000;
         public static final int textView1=0x7f080006;
@@ -42,7 +43,10 @@ public final class R {
         public static final int activity_login_page=0x7f030001;
         public static final int activity_main=0x7f030002;
         public static final int activity_register_page=0x7f030003;
-        public static final int activity_ticket_list_page=0x7f030004;
+        public static final int activity_ticket_page_main=0x7f030004;
+        public static final int current_ticket_page=0x7f030005;
+        public static final int history_ticket_page=0x7f030006;
+        public static final int ticket_page_main=0x7f030007;
     }
     public static final class menu {
         public static final int landing_page=0x7f070000;
@@ -50,6 +54,8 @@ public final class R {
         public static final int main=0x7f070002;
         public static final int register_page=0x7f070003;
         public static final int ticket_list_page=0x7f070004;
+        public static final int ticket_page_main=0x7f070005;
+        public static final int ticket_pages=0x7f070006;
     }
     public static final class string {
         public static final int TEST=0x7f050002;
@@ -68,6 +74,8 @@ public final class R {
         public static final int title_activity_login_page=0x7f050008;
         public static final int title_activity_register_page=0x7f05000c;
         public static final int title_activity_ticket_list_page=0x7f05000e;
+        public static final int title_activity_ticket_page_main=0x7f050011;
+        public static final int title_activity_ticket_pages=0x7f050010;
     }
     public static final class style {
         /** 

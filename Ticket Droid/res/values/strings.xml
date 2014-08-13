@@ -17,5 +17,7 @@
     <string name="confirmPasswordText">Confirm Password</string>
     <string name="title_activity_ticket_list_page">TicketListPage</string>
     <string name="add_ticket_ab">Add Ticket</string>
+    <string name="title_activity_ticket_pages">TicketPages</string>
+    <string name="title_activity_ticket_page_main">TicketPageMain</string>
 
 </resources>
