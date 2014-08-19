@@ -53,6 +53,7 @@
         android:layout_marginRight="26dp"
         android:background="?android:attr/selectableItemBackground"
         android:text="@string/registerButton"
+        android:onClick="goToLogin"
         android:textColor="#3F51B5" />
 
 </RelativeLayout>

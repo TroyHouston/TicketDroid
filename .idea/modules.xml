@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/TicketDroid.iml" filepath="$PROJECT_DIR$/TicketDroid.iml" />
       <module fileurl="file://$PROJECT_DIR$/TicketDroidAS.iml" filepath="$PROJECT_DIR$/TicketDroidAS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
