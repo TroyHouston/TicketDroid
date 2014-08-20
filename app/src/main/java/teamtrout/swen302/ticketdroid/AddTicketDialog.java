@@ -17,6 +17,7 @@ import android.widget.EditText;
  */
 public class AddTicketDialog extends DialogFragment {
 
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         // Use the Builder class for convenient dialog construction
@@ -31,7 +32,7 @@ public class AddTicketDialog extends DialogFragment {
         builder.setTitle(R.string.dialog_title)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText dialogValue = (EditText) getActivity().findViewById(R.id.code);
+                        EditText dialogValue = (EditText) getDialog().findViewById(R.id.code);
                         Events.validTicket(dialogValue.getText().toString());                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
