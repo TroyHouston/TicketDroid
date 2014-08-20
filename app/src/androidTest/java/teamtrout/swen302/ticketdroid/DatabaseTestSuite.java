@@ -1,9 +1,8 @@
 package teamtrout.swen302.ticketdroid;
 
-import static junit.framework.Assert.assertFalse;
-import static junit.framework.Assert.fail;
+import android.test.AndroidTestCase;
 
-public class DatabaseTestSuite {
+public class DatabaseTestSuite extends AndroidTestCase {
 
     //***********************************Testing Valid inputs********************************
 
