@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.widget.Button;
+import android.widget.EditText;
 
 /**
  * Created by Troy on 20/08/2014.
@@ -30,8 +31,8 @@ public class AddTicketDialog extends DialogFragment {
         builder.setTitle(R.string.dialog_title)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        // Add a new Ticket here
-                    }
+                        EditText dialogValue = (EditText) getActivity().findViewById(R.id.code);
+                        Events.validTicket(dialogValue.getText().toString());                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
