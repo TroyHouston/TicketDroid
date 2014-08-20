@@ -37,6 +37,10 @@
             android:label="@string/title_activity_ticket_list_page" >
 
         </activity>
+
+        <activity android:name=".QrPage" android:label="QrPage">
+
+        </activity>
     </application>
 
 
