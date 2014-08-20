@@ -4,8 +4,11 @@ package teamtrout.swen302.ticketdroid;
 import android.content.Context;
 import android.content.Intent;
 
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
+import android.view.GestureDetector;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -26,6 +29,8 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         mDataset = myDataset;
         sContext = context;
         this.callingActivity = callingActivity;
+
+
     }
 
     // Create new views. This is invoked by the layout manager.
@@ -38,11 +43,23 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
 
         // Set the view to the ViewHolder
         ViewHolder holder = new ViewHolder(v);
-        holder.mNameTextView.setOnClickListener(TicketListAdapter.this);
-        holder.mNameTextView.setOnLongClickListener(TicketListAdapter.this);
+        holder.mCardView.setOnClickListener(TicketListAdapter.this);
+        holder.mCardView.setOnLongClickListener(TicketListAdapter.this);
 
-        holder.mNameTextView.setTag(holder);
+        holder.mCardView.setTag(holder);
 
+       /* GestureDetector.SimpleOnGestureListener simpleOnGestureListener
+                = new GestureControl(callingActivity);
+
+        final GestureDetector gestureDetector
+                = new GestureDetector(simpleOnGestureListener);
+
+        holder.mCardView.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return !gestureDetector.onTouchEvent(motionEvent);
+            }
+        });*/
         return holder;
     }
 
@@ -72,7 +89,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     @Override
     public void onClick(View view) {
         ViewHolder holder = (ViewHolder) view.getTag();
-        if (view.getId() == holder.mNameTextView.getId()) {
+        if (view.getId() == holder.mCardView.getId()) {
             Intent i = new Intent(callingActivity,QrPage.class);
             callingActivity.startActivity(i);
         }
@@ -97,6 +114,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     // Create the ViewHolder class to keep references to your views
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mNameTextView;
+        public CardView mCardView;
 
         /**
          * Constructor
@@ -105,6 +123,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         public ViewHolder(View v) {
             super(v);
             mNameTextView = (TextView) v.findViewById(R.id.textView);
+            mCardView = (CardView) v.findViewById(R.id.card_view);
         }
     }
 }
