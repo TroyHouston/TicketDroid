@@ -4,6 +4,8 @@
     <string name="app_name">Ticket Droid</string>
     <string name="action_settings">Settings</string>
     <string name="TEST">test</string>
+    <string name="dialog_title">New Ticket</string>
+    <string name="ticket_code">Ticket Code</string>
     <string name="title_activity_landing_page">LandingPage</string>
     <string name="hello_world">Hello world!</string>
     <string name="introText">&quot;This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n&quot;</string>
