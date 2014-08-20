@@ -12,8 +12,10 @@
 
     <item
         android:id="@+id/action_add"
-        android:icon="@drawable/katy"
+        android:icon="@drawable/ic_action_new"
         android:showAsAction="always"
         android:title="@string/add_ticket_ab"/>
+
+
 
 </menu>
