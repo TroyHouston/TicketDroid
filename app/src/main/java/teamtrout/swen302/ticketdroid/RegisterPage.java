@@ -30,7 +30,7 @@ public class RegisterPage extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_page);
+        setContentView(R.layout.activity_register_page);
         passwordField = (EditText) findViewById(R.id.password);
         confirmField = (EditText) findViewById(R.id.confirmPassword);
         emailField = (EditText) findViewById(R.id.emailAddress);
