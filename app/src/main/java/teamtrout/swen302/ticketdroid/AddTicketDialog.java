@@ -12,6 +12,7 @@ import android.widget.Button;
 
 /**
  * Created by Troy on 20/08/2014.
+ * Git error.
  */
 public class AddTicketDialog extends DialogFragment {
 
