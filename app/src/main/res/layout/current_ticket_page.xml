@@ -1,10 +1,19 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
+
     tools:context=".TicketPageMain"
     android:animateLayoutChanges="true">
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:id="@+id/button2"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/my_recycler_view"
@@ -23,21 +32,11 @@
 
     <Button
         style="?android:attr/buttonStyleSmall"
-        android:layout_width="fill_parent"
+        android:layout_width="115dp"
         android:layout_height="wrap_content"
         android:text="Current"
         android:id="@+id/button"
         android:layout_alignParentEnd="true"
-        android:layout_weight="1"
         android:layout_margin="0dp" />
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:text="History"
-        android:id="@+id/button2"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true" />
-</LinearLayout>
+</RelativeLayout>
