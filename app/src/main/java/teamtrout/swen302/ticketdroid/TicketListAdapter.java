@@ -1,7 +1,9 @@
 package teamtrout.swen302.ticketdroid;
 
+
 import android.content.Context;
-import android.graphics.Color;
+import android.content.Intent;
+
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,16 +13,19 @@ import android.widget.Toast;
 
 import java.util.ArrayList;
 
+
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.ViewHolder> implements View.OnClickListener,
         View.OnLongClickListener{
 
     private ArrayList<String> mDataset;
     private static Context sContext;
+    private TicketPageMain callingActivity;
 
     // Adapter's Constructor
-    public TicketListAdapter(Context context, ArrayList<String> myDataset) {
+    public TicketListAdapter(Context context, ArrayList<String> myDataset, TicketPageMain callingActivity) {
         mDataset = myDataset;
         sContext = context;
+        this.callingActivity = callingActivity;
     }
 
     // Create new views. This is invoked by the layout manager.
@@ -45,16 +50,16 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
 
-        holder.mNumberRowTextView.setText(String.valueOf(position) + ". ");
+        //holder.mNumberRowTextView.setText(String.valueOf(position) + ". ");
         // Get element from your dataset at this position and set the text for the specified element
         holder.mNameTextView.setText(mDataset.get(position));
 
         // Set the color to red if row is even, or to green if row is odd.
-        if (position % 2 == 0) {
-            holder.mNumberRowTextView.setTextColor(Color.RED);
-        } else {
-            holder.mNumberRowTextView.setTextColor(Color.GREEN);
-        }
+        //if (position % 2 == 0) {
+           // holder.mNumberRowTextView.setTextColor(Color.RED);
+        //} else {
+          //  holder.mNumberRowTextView.setTextColor(Color.GREEN);
+        //}
     }
 
     // Return the size of your dataset (invoked by the layout manager)
@@ -68,7 +73,8 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     public void onClick(View view) {
         ViewHolder holder = (ViewHolder) view.getTag();
         if (view.getId() == holder.mNameTextView.getId()) {
-            Toast.makeText(sContext, holder.mNameTextView.getText(), Toast.LENGTH_SHORT).show();
+            Intent i = new Intent(callingActivity,QrPage.class);
+            callingActivity.startActivity(i);
         }
     }
 
@@ -90,7 +96,6 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
 
     // Create the ViewHolder class to keep references to your views
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public TextView mNumberRowTextView;
         public TextView mNameTextView;
 
         /**
@@ -99,9 +104,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
          */
         public ViewHolder(View v) {
             super(v);
-
-            mNumberRowTextView = (TextView) v.findViewById(R.id.rowNumberTextView);
-            mNameTextView = (TextView) v.findViewById(R.id.nameTextView);
+            mNameTextView = (TextView) v.findViewById(R.id.textView);
         }
     }
 }
