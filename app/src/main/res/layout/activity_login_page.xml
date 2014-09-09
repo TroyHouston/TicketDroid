@@ -53,7 +53,7 @@
         android:layout_marginRight="21dp"
         android:background="?android:attr/selectableItemBackground"
         android:text="@string/loginButton"
-        android:onClick="goToTicketPage"
+        android:onClick="attemptLogin"
         android:textColor="#3F51B5" />
 
 </RelativeLayout>
