@@ -61,7 +61,7 @@ public class TicketPageMain extends Activity {
             case R.id.action_settings:
                 return true;
             case R.id.action_add:
-                new AddTicketDialog(this).show(getFragmentManager(), "addTicketDialog");
+                new AddTicketDialog().show(getFragmentManager(), "addTicketDialog");
                 break;
         }
         return super.onOptionsItemSelected(item);
