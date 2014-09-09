@@ -68,6 +68,22 @@ public class RegisterPage extends Activity {
             return;
         }
 
+        if (passwordField.getText().toString().length() < 4) { //password too short
+            alertDialogBuilder.setTitle("Error");
+
+            alertDialogBuilder.setMessage("Password is not long enough")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            return;
+        }
+
         if (db.contains(emailField.getText().toString())) { //already contains this email
             alertDialogBuilder.setTitle("Error");
 
@@ -84,7 +100,23 @@ public class RegisterPage extends Activity {
             return;
         }
 
-        if(db.addAccount(this,emailField.getText().toString(), passwordField.getText().toString())) {
+        String[] split = emailField.getText().toString().split("@");
+
+        if(split[0].length() < 1 || split[1].length() < 1 || split.length == 2) { // valid email
+                alertDialogBuilder.setMessage("Invalid Email Address")
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+        }
+
+        if(db.addAccount(this,emailField.getText().toString(), passwordField.getText().toString())) { //valid
             alertDialogBuilder.setMessage("Account added")
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -97,8 +129,8 @@ public class RegisterPage extends Activity {
             alertDialog.show();
 
 
-        } else {
-            alertDialogBuilder.setMessage("The account is not legit")
+        } else { //general error message
+            alertDialogBuilder.setMessage("Something went wrong")
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
