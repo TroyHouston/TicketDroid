@@ -29,8 +29,6 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         mDataset = myDataset;
         sContext = context;
         this.callingActivity = callingActivity;
-
-
     }
 
     // Create new views. This is invoked by the layout manager.

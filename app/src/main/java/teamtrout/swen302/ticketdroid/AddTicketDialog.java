@@ -33,7 +33,11 @@ public class AddTicketDialog extends DialogFragment {
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         EditText dialogValue = (EditText) getDialog().findViewById(R.id.code);
-                        Events.validTicket(dialogValue.getText().toString());                     }
+                        //If QR code is valid add ticket
+                        if (Events.validTicket(dialogValue.getText().toString())){
+
+
+                        }                     }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

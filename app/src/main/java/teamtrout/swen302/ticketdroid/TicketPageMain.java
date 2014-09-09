@@ -32,16 +32,19 @@ public class TicketPageMain extends Activity {
         recyclerView.setLayoutManager(mLayoutManager);
 
         // Data set used by the adapter. This data will be displayed.
-        ArrayList<String> myDataset = new ArrayList<String>();
+        ArrayList<String> tickets = new ArrayList<String>();
         for (int i = 0; i < 2; i++) {
-            myDataset.add("Katy Perry " + i);
+            tickets.add("john");
         }
 
         // Create the adapter
-        RecyclerView.Adapter adapter = new TicketListAdapter(TicketPageMain.this, myDataset,this);
+        RecyclerView.Adapter adapter = new TicketListAdapter(TicketPageMain.this, tickets,this);
         recyclerView.setAdapter(adapter);
-
     }
+
+
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
