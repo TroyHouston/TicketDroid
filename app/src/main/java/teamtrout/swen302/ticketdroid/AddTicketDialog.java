@@ -17,6 +17,11 @@ import android.widget.EditText;
  */
 public class AddTicketDialog extends DialogFragment {
 
+    TicketPageMain parent;
+
+    AddTicketDialog(TicketPageMain parent) {
+        this.parent = parent;
+    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -34,10 +39,11 @@ public class AddTicketDialog extends DialogFragment {
                     public void onClick(DialogInterface dialog, int id) {
                         EditText dialogValue = (EditText) getDialog().findViewById(R.id.code);
                         //If QR code is valid add ticket
-                        if (Events.validTicket(dialogValue.getText().toString())){
-
-
-                        }                     }
+                            if (Events.validTicket(dialogValue.getText().toString())){
+                                String ticketInfo = (Events.events.get(dialogValue.getText().toString())).toStringBasic();
+                                parent.addTicket(ticketInfo, dialogValue.getText().toString());
+                            }
+                       }
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

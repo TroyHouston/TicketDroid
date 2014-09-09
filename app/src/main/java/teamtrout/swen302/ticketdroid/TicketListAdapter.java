@@ -6,9 +6,7 @@ import android.content.Intent;
 
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
-import android.view.GestureDetector;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -20,13 +18,15 @@ import java.util.ArrayList;
 public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.ViewHolder> implements View.OnClickListener,
         View.OnLongClickListener{
 
-    private ArrayList<String> mDataset;
+    private ArrayList<String> tickets;
+    private ArrayList<String> codes;
     private static Context sContext;
     private TicketPageMain callingActivity;
 
     // Adapter's Constructor
-    public TicketListAdapter(Context context, ArrayList<String> myDataset, TicketPageMain callingActivity) {
-        mDataset = myDataset;
+    public TicketListAdapter(Context context,ArrayList<String> codes, ArrayList<String> tickets, TicketPageMain callingActivity) {
+        this.tickets = tickets;
+        this.codes = codes;
         sContext = context;
         this.callingActivity = callingActivity;
     }
@@ -67,7 +67,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
 
         //holder.mNumberRowTextView.setText(String.valueOf(position) + ". ");
         // Get element from your dataset at this position and set the text for the specified element
-        holder.mNameTextView.setText(mDataset.get(position));
+        holder.mNameTextView.setText(tickets.get(position));
 
         // Set the color to red if row is even, or to green if row is odd.
         //if (position % 2 == 0) {
@@ -80,7 +80,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     // Return the size of your dataset (invoked by the layout manager)
     @Override
     public int getItemCount() {
-        return mDataset.size();
+        return tickets.size();
     }
 
     // Implement OnClick listener. The clicked item text is displayed in a Toast message.
@@ -90,6 +90,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         if (view.getId() == holder.mCardView.getId()) {
             Intent i = new Intent(callingActivity,QrPage.class);
             callingActivity.startActivity(i);
+            //give detailed ticket info to QR class
         }
     }
 
@@ -98,7 +99,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     public boolean onLongClick(View view) {
         ViewHolder holder = (ViewHolder) view.getTag();
         if (view.getId() == holder.mNameTextView.getId()) {
-            mDataset.remove(holder.getPosition());
+            tickets.remove(holder.getPosition());
 
             // Call this method to refresh the list and display the "updated" list
             notifyDataSetChanged();

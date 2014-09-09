@@ -13,7 +13,10 @@ import android.view.MenuItem;
 import java.util.ArrayList;
 
 public class TicketPageMain extends Activity {
-
+    // Data set used by the adapter. This data will be displayed.
+    static ArrayList<String> tickets = new ArrayList<String>();
+    ArrayList<String> codes = new ArrayList<String>();
+    RecyclerView recyclerView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -21,7 +24,7 @@ public class TicketPageMain extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.current_ticket_page);
 
-        RecyclerView recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
+        recyclerView = (RecyclerView) findViewById(R.id.my_recycler_view);
 
         // improve performance if you know that changes in content
         // do not change the size of the RecyclerView
@@ -30,19 +33,15 @@ public class TicketPageMain extends Activity {
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-
-        // Data set used by the adapter. This data will be displayed.
-        ArrayList<String> tickets = new ArrayList<String>();
-        for (int i = 0; i < 2; i++) {
-            tickets.add("john");
-        }
-
-        // Create the adapter
-        RecyclerView.Adapter adapter = new TicketListAdapter(TicketPageMain.this, tickets,this);
-        recyclerView.setAdapter(adapter);
     }
 
-
+    public void addTicket(String ticketInfo, String code){
+        tickets.add(ticketInfo);
+        codes.add(code);
+        // Create the adapter
+        RecyclerView.Adapter adapter = new TicketListAdapter(TicketPageMain.this, codes, tickets,this);
+        recyclerView.setAdapter(adapter);
+    }
 
 
 
@@ -64,7 +63,7 @@ public class TicketPageMain extends Activity {
             case R.id.action_settings:
                 return true;
             case R.id.action_add:
-                new AddTicketDialog().show(getFragmentManager(), "addTicketDialog");
+                new AddTicketDialog(this).show(getFragmentManager(), "addTicketDialog");
                 break;
         }
         return super.onOptionsItemSelected(item);
