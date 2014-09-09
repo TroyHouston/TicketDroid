@@ -5,103 +5,22 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.util.JsonReader;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
-
 public class LoginPage extends Activity {
 
-    static Database db = new Database();
+    Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
 
-        try {
-            FileInputStream stream = openFileInput("database");
-
-            String jsonStr = null;
-            try {
-                FileChannel fc = stream.getChannel();
-                MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-
-                jsonStr = Charset.defaultCharset().decode(bb).toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            finally {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (jsonStr.length() != 0) {
-                JSONObject jsonObj = new JSONObject(jsonStr);
-
-                // Getting data JSON Array nodes
-                JSONArray data  = jsonObj.getJSONArray("data");
-
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject c = data.getJSONObject(i);
-
-                    String user = c.getString("username");
-                    String password = c.getString("password");
-                    db.addAccount(user, password);
-                }
-
-            }
-
-
-        } catch (JSONException e){
-            e.printStackTrace();
-            throw new Error("Failed to load the database. Please contact the admin");
-        } catch (FileNotFoundException e) {
-            try {
-                FileOutputStream fos = openFileOutput("database", MODE_PRIVATE);
-            } catch (FileNotFoundException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-                throw new Error("Failed to create the database. Please contact the admin");
-            }
-        }
-
-    }
-
-    public Account readUser(JsonReader reader) throws IOException {
-        String username = null;
-        String password = null;
-
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            if (name.equals("username")) {
-                username = reader.nextString();
-            } else if (name.equals("password")) {
-                password = reader.nextString();
-            } else {
-                reader.skipValue();
-            }
-        }
-        reader.endObject();
-        return new Account(username, password);
+        db = new Database(this);
     }
 
     @Override
@@ -128,8 +47,14 @@ public class LoginPage extends Activity {
         Editable user = ((EditText)findViewById(R.id.emailaddress)).getText();
         Editable password = ((EditText)findViewById(R.id.password)).getText();
 
+        Log.w("User", user.toString());
+        Log.w("Password", password.toString());
+
+        Log.w("Boolean", Boolean.toString(db.validUser(user.toString(),password.toString())));
+        Log.w("Boolean", Boolean.toString(db.contains(user.toString())));
+
         if (db.validUser(user.toString(), password.toString())){
-            Log.w("something", "else");
+            Log.w("Worked", "good");
 
             //Go to ticketScreen if successful
             Intent intent = new Intent(this, TicketPageMain.class);
@@ -137,7 +62,7 @@ public class LoginPage extends Activity {
             startActivity(intent);
         }
 
-        Log.w("something", "other");
+        Log.w("Worked", "Not");
     }
 
 
