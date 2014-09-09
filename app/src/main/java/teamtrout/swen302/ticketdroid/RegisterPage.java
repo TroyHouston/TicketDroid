@@ -1,27 +1,17 @@
 package teamtrout.swen302.ticketdroid;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.nio.MappedByteBuffer;
-import java.nio.channels.FileChannel;
-import java.nio.charset.Charset;
-
 public class RegisterPage extends Activity {
 
-    static Database db = new Database();
+    Database db;
     EditText passwordField;
     EditText confirmField;
     EditText emailField;
@@ -31,60 +21,12 @@ public class RegisterPage extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_page);
+
         passwordField = (EditText) findViewById(R.id.password);
         confirmField = (EditText) findViewById(R.id.confirmPassword);
         emailField = (EditText) findViewById(R.id.emailAddress);
 
-        try {
-            FileInputStream stream = openFileInput("database");
-
-            String jsonStr = null;
-            try {
-                FileChannel fc = stream.getChannel();
-                MappedByteBuffer bb = fc.map(FileChannel.MapMode.READ_ONLY, 0, fc.size());
-
-                jsonStr = Charset.defaultCharset().decode(bb).toString();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            finally {
-                try {
-                    stream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            if (jsonStr.length() != 0) {
-                JSONObject jsonObj = new JSONObject(jsonStr);
-
-                // Getting data JSON Array nodes
-                JSONArray data  = jsonObj.getJSONArray("data");
-
-                for (int i = 0; i < data.length(); i++) {
-                    JSONObject c = data.getJSONObject(i);
-
-                    String user = c.getString("username");
-                    String password = c.getString("password");
-                    db.addAccount(user, password);
-                }
-
-            }
-
-
-        } catch (JSONException e){
-            e.printStackTrace();
-            throw new Error("Failed to load the database. Please contact the admin");
-        } catch (FileNotFoundException e) {
-            try {
-                FileOutputStream fos = openFileOutput("database", MODE_PRIVATE);
-            } catch (FileNotFoundException e1) {
-                // TODO Auto-generated catch block
-                e1.printStackTrace();
-                throw new Error("Failed to create the database. Please contact the admin");
-            }
-        }
-
+        db = new Database(this);
     }
 
 
@@ -107,12 +49,65 @@ public class RegisterPage extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void attemptRegister(View view){
-        if (!passwordField.getText().toString().equals(confirmField.getText().toString())){
-            //passwords do not match
+    public void attemptRegister(View view) {
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+
+        if (!passwordField.getText().toString().equals(confirmField.getText().toString())) { //passwords do not match
+            alertDialogBuilder.setTitle("Error");
+
+            alertDialogBuilder.setMessage("Passwords do not match")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            return;
         }
-        if(db.contains(emailField.getText().toString())) {
-            //email address already has an account
+
+        if (db.contains(emailField.getText().toString())) { //already contains this email
+            alertDialogBuilder.setTitle("Error");
+
+            alertDialogBuilder.setMessage("This email already exists")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            return;
+        }
+
+        if(db.addAccount(this,emailField.getText().toString(), passwordField.getText().toString())) {
+            alertDialogBuilder.setMessage("Account added")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
+
+        } else {
+            alertDialogBuilder.setMessage("The account is not legit")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
     }
 }
