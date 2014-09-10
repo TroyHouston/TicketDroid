@@ -20,5 +20,6 @@
     <string name="add_ticket_ab">Add Ticket</string>
     <string name="title_activity_ticket_pages">TicketPages</string>
     <string name="title_activity_ticket_page_main">TicketPageMain</string>
+    <string name="get_started">To get started, log in using Facebook</string>
 
 </resources>
