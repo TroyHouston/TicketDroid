@@ -4,12 +4,15 @@ package teamtrout.swen302.ticketdroid;
 import android.content.Context;
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +39,6 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     @Override
     public TicketListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
-
 
         // Create a new view by inflating the row item xml.
         View v = LayoutInflater.from(parent.getContext())
@@ -71,6 +73,14 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         //holder.mNumberRowTextView.setText(String.valueOf(position) + ". ");
         // Get element from your dataset at this position and set the text for the specified element
         holder.mNameTextView.setText(tickets.get(position));
+
+        //holder.getPosition()
+        //Set image of ticket
+
+        ImageView img= (ImageView) holder.mCardView.findViewById(R.id.ticketImage);
+        Bitmap bitmapImage = BitmapFactory.decodeResource(img.getResources(),(Events.events.get(codes.get(holder.getPosition()))).getImage());
+        Bitmap scaledImage = Bitmap.createScaledBitmap(bitmapImage, 150,150,true);
+        img.setImageBitmap(scaledImage);
 
         // Set the color to red if row is even, or to green if row is odd.
         //if (position % 2 == 0) {

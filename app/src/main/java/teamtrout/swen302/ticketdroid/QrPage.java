@@ -75,5 +75,8 @@ public class QrPage extends Activity {
     public void setTicketInfo(String code){
         TextView ticketInfo = (TextView) findViewById(R.id.ticketInfo);
         ticketInfo.setText((Events.events.get(code)).toStringDetailed());
+        //Set Image
+        ImageView img= (ImageView) findViewById(R.id.ticketImage);
+        img.setImageResource((Events.events.get(code)).getImage());
     }
 }
