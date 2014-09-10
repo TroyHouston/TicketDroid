@@ -43,7 +43,7 @@ public class AddTicketDialog extends DialogFragment {
                         if (Events.validTicket(enteredCode)
                                 && !TicketPageMain.codes.contains(enteredCode)) {
                             String ticketInfo = (Events.events.get(enteredCode)).toStringBasic();
-                            parent.addTicket(ticketInfo, enteredCode);
+                            parent.addTicket(ticketInfo, enteredCode, false);
                         } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                             alertDialogBuilder.setTitle("Error");
