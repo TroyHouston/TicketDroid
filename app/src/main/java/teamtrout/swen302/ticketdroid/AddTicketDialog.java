@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.EditText;
@@ -31,18 +30,19 @@ public class AddTicketDialog extends DialogFragment {
         // Import an XML design
         LayoutInflater inflater = getActivity().getLayoutInflater();
         builder.setView(inflater.inflate(R.layout.dialog_add_ticket, null));
-        String you = "<font color='red'> Add Ticket </font>";
 
         //Html.fromHtml(you);
         builder.setTitle(R.string.dialog_title)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText dialogValue = (EditText) getDialog().findViewById(R.id.code);
+                        EditText codeField = (EditText) getDialog().findViewById(R.id.code);
+                        String enteredCode = codeField.getText().toString();
+
                         //If QR code is valid add ticket (cant add same ticket)
-                        if (Events.validTicket(dialogValue.getText().toString())
-                                && !TicketPageMain.codes.contains(dialogValue.getText().toString())) {
-                            String ticketInfo = (Events.events.get(dialogValue.getText().toString())).toStringBasic();
-                            parent.addTicket(ticketInfo, dialogValue.getText().toString());
+                        if (Events.validTicket(enteredCode)
+                                && !TicketPageMain.codes.contains(enteredCode)) {
+                            String ticketInfo = (Events.events.get(enteredCode)).toStringBasic();
+                            parent.addTicket(ticketInfo, enteredCode);
                         } else {
                             AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
                             alertDialogBuilder.setTitle("Error");
@@ -57,7 +57,6 @@ public class AddTicketDialog extends DialogFragment {
 
                             AlertDialog alertDialog = alertDialogBuilder.create();
                             alertDialog.show();
-                            return;
                         }
 
                     }
