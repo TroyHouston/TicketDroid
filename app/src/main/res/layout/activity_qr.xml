@@ -16,8 +16,7 @@
         android:adjustViewBounds="true"
         android:scaleType="fitCenter"
         android:src="@drawable/qrcode"
-        android:background="#999999"
-        android:layout_gravity="center_vertical" />
+        android:background="#999999" />
 
     <android.support.v7.widget.CardView
         xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -49,9 +48,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Name:Katy Perry\nSeat:5A\nLocation:TSB Arena\nTime:5:30\nDate:22/12/14"
+                android:text="Before"
                 android:textSize = "14sp"
-                android:id="@+id/textView"
+                android:id="@+id/ticketInfo"
                 android:textColor="#FFFFFF"
                 android:paddingLeft="14dp"
                 android:paddingRight="14dp"

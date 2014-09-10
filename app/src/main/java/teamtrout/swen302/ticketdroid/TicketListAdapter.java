@@ -4,6 +4,7 @@ package teamtrout.swen302.ticketdroid;
 import android.content.Context;
 import android.content.Intent;
 
+import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -35,6 +36,8 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     @Override
     public TicketListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                          int viewType) {
+
+
         // Create a new view by inflating the row item xml.
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_row, parent, false);
@@ -87,10 +90,14 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     @Override
     public void onClick(View view) {
         ViewHolder holder = (ViewHolder) view.getTag();
+        int j = view.getId();
         if (view.getId() == holder.mCardView.getId()) {
             Intent i = new Intent(callingActivity,QrPage.class);
-            callingActivity.startActivity(i);
             //give detailed ticket info to QR class
+            Bundle bundle = new Bundle();
+            bundle.putString("code", codes.get(holder.getPosition()));
+            i.putExtras(bundle);
+            callingActivity.startActivity(i);
         }
     }
 

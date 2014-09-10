@@ -36,13 +36,32 @@ public class AddTicketDialog extends DialogFragment {
         builder.setTitle(R.string.dialog_title)
                 .setPositiveButton("Add", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        EditText dialogValue = (EditText) getDialog().findViewById(R.id.code);
-                        //If QR code is valid add ticket
-                            if (Events.validTicket(dialogValue.getText().toString())){
-                                String ticketInfo = (Events.events.get(dialogValue.getText().toString())).toStringBasic();
-                                parent.addTicket(ticketInfo, dialogValue.getText().toString(),false);
-                            }
-                       }
+                        EditText codeField = (EditText) getDialog().findViewById(R.id.code);
+                        String enteredCode = codeField.getText().toString();
+
+                        //If QR code is valid add ticket (cant add same ticket)
+                        if (Events.validTicket(enteredCode)
+                                && !TicketPageMain.codes.contains(enteredCode)) {
+                            String ticketInfo = (Events.events.get(enteredCode)).toStringBasic();
+                            parent.addTicket(ticketInfo, enteredCode);
+                        } else {
+                            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
+                            alertDialogBuilder.setTitle("Error");
+
+                            alertDialogBuilder.setMessage("The code is invalid.")
+                                    .setCancelable(false)
+                                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                                        public void onClick(DialogInterface dialogInterface, int i) {
+                                            dialogInterface.cancel();
+                                        }
+                                    });
+
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+                        }
+
+                    }
+
                 })
                 .setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {

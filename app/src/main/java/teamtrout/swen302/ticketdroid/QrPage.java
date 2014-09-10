@@ -3,6 +3,7 @@ package teamtrout.swen302.ticketdroid;
 import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
@@ -13,6 +14,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.widget.TextView;
 
 
 public class QrPage extends Activity {
@@ -23,7 +25,13 @@ public class QrPage extends Activity {
         setContentView(R.layout.activity_qr);
         CardView cv = (CardView) findViewById(R.id.card_view);
 
-        qrifyString("Hello there");
+        //Get detailed ticket Info
+        Bundle bundle = getIntent().getExtras();
+        String code = bundle.getString("code");
+        qrifyString(code);
+        Log.d("working:  "," " + code);
+        //Set detailed ticket Info
+        setTicketInfo(code);
     }
 
     @Override
@@ -62,5 +70,10 @@ public class QrPage extends Activity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setTicketInfo(String code){
+        TextView ticketInfo = (TextView) findViewById(R.id.ticketInfo);
+        ticketInfo.setText((Events.events.get(code)).toStringDetailed());
     }
 }
