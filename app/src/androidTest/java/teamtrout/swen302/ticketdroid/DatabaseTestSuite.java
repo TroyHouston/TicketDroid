@@ -22,7 +22,7 @@ public class DatabaseTestSuite extends AndroidTestCase {
      */
     public void testValid2() {
         Database db = createDatabase("Troy", "Password");
-        db.addAccount("Marc","Password");
+        db.addAccount(getContext(),"Marc","Password");
 
         if(!db.validUser("Troy","Password")){
             fail("Should be a valid account");
@@ -108,7 +108,7 @@ public class DatabaseTestSuite extends AndroidTestCase {
      */
     public void testPasswordMismatch(){
         Database db = createDatabase("Troy", "Password");
-        db.addAccount("Marc","1234");
+        db.addAccount(getContext(),"Marc","1234");
 
         if(db.validUser("Troy","1234")){
             fail("Password does not belong to user, should fail");
@@ -116,22 +116,22 @@ public class DatabaseTestSuite extends AndroidTestCase {
     }
 
     public void testEmptyUser(){
-        Database db = new Database();
+        Database db = new Database(getContext());
 
-        assertFalse(db.addAccount("", "Password"));
+        assertFalse(db.addAccount(getContext(),"", "Password"));
     }
 
     public void testEmptyPassword(){
-        Database db = new Database();
+        Database db = new Database(getContext());
 
-        assertFalse(db.addAccount("User",""));
+        assertFalse(db.addAccount(getContext(),"User",""));
     }
 
     //************************************Helper methods*************************************
 
     private Database createDatabase(String user, String password){
-        Database db = new Database();
-        db.addAccount(user,password);
+        Database db = new Database(getContext());
+        db.addAccount(getContext(),user,password);
         return db;
     }
 }

@@ -3,11 +3,13 @@ package teamtrout.swen302.ticketdroid;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
+import java.lang.Class;
 
 public class RegisterPage extends Activity {
 
@@ -43,10 +45,7 @@ public class RegisterPage extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
+        return (id == R.id.action_settings) || super.onOptionsItemSelected(item);
     }
 
     public void attemptRegister(View view) {
@@ -56,6 +55,22 @@ public class RegisterPage extends Activity {
             alertDialogBuilder.setTitle("Error");
 
             alertDialogBuilder.setMessage("Passwords do not match")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+            return;
+        }
+
+        if (passwordField.getText().toString().length() < 4) { //password too short
+            alertDialogBuilder.setTitle("Error");
+
+            alertDialogBuilder.setMessage("Password is not long enough")
                     .setCancelable(false)
                     .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
@@ -84,12 +99,32 @@ public class RegisterPage extends Activity {
             return;
         }
 
-        if(db.addAccount(this,emailField.getText().toString(), passwordField.getText().toString())) {
+        String[] split = emailField.getText().toString().split("@");
+
+        if(split[0].length() < 1 || split[1].length() < 1 || split.length == 2) { // valid email
+                alertDialogBuilder.setMessage("Invalid Email Address")
+                        .setCancelable(false)
+                        .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                dialogInterface.cancel();
+                            }
+                        });
+
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                alertDialog.show();
+
+        }
+
+        if(db.addAccount(this,emailField.getText().toString(), passwordField.getText().toString())) { //valid
+            final Class afterPage = LoginPage.class;
+            final RegisterPage me = this;
             alertDialogBuilder.setMessage("Account added")
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             dialogInterface.cancel();
+                            Intent intent = new Intent(me, afterPage);
+                            startActivity(intent);
                         }
                     });
 
@@ -97,8 +132,8 @@ public class RegisterPage extends Activity {
             alertDialog.show();
 
 
-        } else {
-            alertDialogBuilder.setMessage("The account is not legit")
+        } else { //general error message
+            alertDialogBuilder.setMessage("Something went wrong")
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {

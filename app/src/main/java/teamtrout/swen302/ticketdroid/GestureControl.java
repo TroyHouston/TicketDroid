@@ -1,6 +1,5 @@
 package teamtrout.swen302.ticketdroid;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -22,7 +21,6 @@ public class GestureControl extends GestureDetector.SimpleOnGestureListener {
         String swipe = "";
         float sensitvity = 50;
 
-        // TODO Auto-generated method stub
         if((e1.getX() - e2.getX()) > sensitvity){
             swipe += "Swipe Left\n";
             Intent i = new Intent(callingActivity,HistoryTicketPage.class);
