@@ -9,8 +9,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import java.lang.Class;
 
+/*
+ * This is the page where new users are recorded to the database
+ */
 public class RegisterPage extends Activity {
 
     Database db;
@@ -48,12 +50,22 @@ public class RegisterPage extends Activity {
         return (id == R.id.action_settings) || super.onOptionsItemSelected(item);
     }
 
+    /*
+     * This method
+     * 1. Does a validation checks on the three fields
+     * 2. Displays a message to the user about the outcome
+     * 3. Adds to a db if valid, then redirect to login page
+     */
     public void attemptRegister(View view) {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+        String enteredPwd = passwordField.getText().toString();
+        String enteredConfirm = confirmField.getText().toString();
+        String enteredEmail = emailField.getText().toString();
+        String[] splitEmail = enteredEmail.split("@");
 
-        if (!passwordField.getText().toString().equals(confirmField.getText().toString())) { //passwords do not match
+        //Error Checks
+        if (!enteredPwd.equals(enteredConfirm)) { //passwords do not match
             alertDialogBuilder.setTitle("Error");
-
             alertDialogBuilder.setMessage("Passwords do not match")
                     .setCancelable(false)
                     .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -61,15 +73,8 @@ public class RegisterPage extends Activity {
                             dialogInterface.cancel();
                         }
                     });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
-            return;
-        }
-
-        if (passwordField.getText().toString().length() < 4) { //password too short
+        } else if (enteredPwd.length() < 4) { //password too short
             alertDialogBuilder.setTitle("Error");
-
             alertDialogBuilder.setMessage("Password is not long enough")
                     .setCancelable(false)
                     .setPositiveButton("Ok",new DialogInterface.OnClickListener() {
@@ -77,13 +82,7 @@ public class RegisterPage extends Activity {
                             dialogInterface.cancel();
                         }
                     });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
-            return;
-        }
-
-        if (db.contains(emailField.getText().toString())) { //already contains this email
+        } else if (db.contains(enteredEmail)) { //already contains this email
             alertDialogBuilder.setTitle("Error");
 
             alertDialogBuilder.setMessage("This email already exists")
@@ -93,15 +92,7 @@ public class RegisterPage extends Activity {
                             dialogInterface.cancel();
                         }
                     });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
-            return;
-        }
-
-        String[] split = emailField.getText().toString().split("@");
-
-        if(split[0].length() < 1 || split[1].length() < 1 || split.length == 2) { // valid email
+        } else if (splitEmail[0].length() < 1 || splitEmail[1].length() < 1 || splitEmail.length != 2) { // invalid email
                 alertDialogBuilder.setMessage("Invalid Email Address")
                         .setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -109,13 +100,7 @@ public class RegisterPage extends Activity {
                                 dialogInterface.cancel();
                             }
                         });
-
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-        }
-
-        if(db.addAccount(this,emailField.getText().toString(), passwordField.getText().toString())) { //valid
+        } else if (db.addAccount(this, enteredEmail, enteredPwd)) { //Successful registration
             final Class afterPage = LoginPage.class;
             final RegisterPage me = this;
             alertDialogBuilder.setMessage("Account added")
@@ -127,12 +112,7 @@ public class RegisterPage extends Activity {
                             startActivity(intent);
                         }
                     });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
-
-
-        } else { //general error message
+        } else { //Unexpected failure, database addition failed
             alertDialogBuilder.setMessage("Something went wrong")
                     .setCancelable(false)
                     .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -140,9 +120,8 @@ public class RegisterPage extends Activity {
                             dialogInterface.cancel();
                         }
                     });
-
-            AlertDialog alertDialog = alertDialogBuilder.create();
-            alertDialog.show();
         }
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        alertDialog.show();
     }
 }
