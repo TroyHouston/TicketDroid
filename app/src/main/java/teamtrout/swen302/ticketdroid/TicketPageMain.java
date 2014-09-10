@@ -15,7 +15,7 @@ import java.util.ArrayList;
 public class TicketPageMain extends Activity {
     // Data set used by the adapter. This data will be displayed.
     static ArrayList<String> tickets = new ArrayList<String>();
-    ArrayList<String> codes = new ArrayList<String>();
+    static ArrayList<String> codes = new ArrayList<String>();
     RecyclerView recyclerView;
 
 	@Override
