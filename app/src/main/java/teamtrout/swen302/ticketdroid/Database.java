@@ -16,6 +16,7 @@ public class Database {
 
     //Username -> Account
     private HashMap<String,Account> database;
+    public Account currentAccount;
 
     public Database(Context context){
         database = new HashMap<String,Account>();
@@ -26,7 +27,8 @@ public class Database {
         File dbFile = new File(context.getFilesDir(),"database");
 
         if(!dbFile.exists()) {
-            try{writeToFile(context);}
+            try{
+                writeToAccountFile(context);}
             catch (Exception IOException){}
             return true;
         }
@@ -44,7 +46,8 @@ public class Database {
                     loadAccount(context, user, password);
                 }
             }
-
+            loadTickets(context);
+            return true;
                 } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
@@ -69,6 +72,43 @@ public class Database {
         return true;
     }
 
+    public boolean loadTickets(Context context){
+        File dbFile = new File(context.getFilesDir(),"ticket");
+
+        if(!dbFile.exists()) {
+            try{
+                writeToTicketFile(context);}
+            catch (Exception IOException){}
+            return true;
+        }
+        try {
+            FileInputStream fr = context.openFileInput("ticket");
+            Scanner f = new Scanner(fr);
+
+            while(f.hasNext()) {
+                String next = f.next();
+                if (next.equals("user")) {
+                    f.next();
+                    String user = f.next();
+                    Account acc = database.get(user);
+                    next = f.next();
+                    while(next != null && !next.equals("user") ){
+                        acc.addTicket(next);
+                        if(f.hasNext())
+                            next = f.next();
+                        else
+                            next = null;
+                    }
+                }
+            }
+            return true;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
     /**
      * Adds account to the local storage database
      * @param user
@@ -83,7 +123,7 @@ public class Database {
         //No special characters in pw?
         database.put(user.toLowerCase(Locale.ENGLISH), new Account(user.toLowerCase(Locale.ENGLISH),password));
         try{
-            writeToFile(context);
+            writeToAccountFile(context);
         }
         catch (Exception IOException){
             return false;
@@ -91,7 +131,7 @@ public class Database {
         return true;
     }
 
-    private boolean writeToFile(Context context) throws IOException{
+    private boolean writeToAccountFile(Context context) throws IOException{
         File dbFile = new File(context.getFilesDir(),"database");
         if(!dbFile.exists()) {
             dbFile.createNewFile();
@@ -112,6 +152,45 @@ public class Database {
         return true;
     }
 
+    private boolean writeToTicketFile(Context context) throws IOException {
+        File dbFile = new File(context.getFilesDir(),"ticket");
+        dbFile.delete();
+        dbFile = new File(context.getFilesDir(),"ticket");
+        if(!dbFile.exists()) {
+            dbFile.createNewFile();
+        }
+        FileOutputStream  fw = context.openFileOutput("ticket",Context.MODE_PRIVATE);
+        StringBuilder sb = new StringBuilder();
+        Boolean first = true;
+        for(Map.Entry<String,Account> entry:database.entrySet()){
+            Account account = database.get(entry.getKey());
+            if(!first) sb.append("\n,");
+            else first = false;
+            sb.append("user");
+            sb.append("\nusername "+entry.getKey());
+            for(int j = 0 ; j < account.ticketSize(); j ++){
+                sb.append("\n" + account.getTicket(j));
+            }
+            sb.append("\n");
+        }
+        fw.write(sb.toString().getBytes());
+        fw.close();
+        return true;
+    }
+
+        public boolean addTicket(String ticket, Context context){
+
+        database.get(currentAccount.getUser()).addTicket(ticket);
+
+            try {
+                writeToTicketFile(context);
+            } catch (IOException e) {
+                e.printStackTrace();
+                return false;
+            }
+
+            return true;
+    }
     /**
      * Checks if the users details that are passed to it exist/valid
      * @param user
@@ -137,5 +216,7 @@ public class Database {
     }
 
 
-
+    public void setUser(String s) {
+        currentAccount = database.get(s);
+    }
 }

@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import java.lang.Class;
 
 public class RegisterPage extends Activity {
 
@@ -101,7 +100,7 @@ public class RegisterPage extends Activity {
 
         String[] split = emailField.getText().toString().split("@");
 
-        if(split[0].length() < 1 || split[1].length() < 1 || split.length == 2) { // valid email
+        if(split.length != 2 || (split[0].length() < 1 || split[1].length() < 1)) { // Invalid email
                 alertDialogBuilder.setMessage("Invalid Email Address")
                         .setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
@@ -112,7 +111,7 @@ public class RegisterPage extends Activity {
 
                 AlertDialog alertDialog = alertDialogBuilder.create();
                 alertDialog.show();
-
+                return;
         }
 
         if(db.addAccount(this,emailField.getText().toString(), passwordField.getText().toString())) { //valid

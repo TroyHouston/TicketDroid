@@ -6,7 +6,6 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.EditText;
@@ -41,7 +40,7 @@ public class AddTicketDialog extends DialogFragment {
                         //If QR code is valid add ticket
                             if (Events.validTicket(dialogValue.getText().toString())){
                                 String ticketInfo = (Events.events.get(dialogValue.getText().toString())).toStringBasic();
-                                parent.addTicket(ticketInfo, dialogValue.getText().toString());
+                                parent.addTicket(ticketInfo, dialogValue.getText().toString(),false);
                             }
                        }
                 })

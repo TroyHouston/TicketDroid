@@ -17,7 +17,11 @@
         <activity
             android:name="teamtrout.swen302.ticketdroid.LandingPage"
             android:label="@string/title_activity_landing_page" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
         <activity
@@ -31,11 +35,7 @@
         <activity
             android:name="teamtrout.swen302.ticketdroid.TicketPageMain"
             android:label="@string/title_activity_ticket_list_page" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <activity android:name=".QrPage" android:label="QrPage">

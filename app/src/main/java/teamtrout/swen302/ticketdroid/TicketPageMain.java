@@ -1,10 +1,8 @@
 package teamtrout.swen302.ticketdroid;
 
 
-
-import android.os.Bundle;
 import android.app.Activity;
-
+import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
@@ -33,11 +31,18 @@ public class TicketPageMain extends Activity {
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
+        for(int i = 0 ; i < LoginPage.db.currentAccount.ticketSize(); i ++){
+            addTicket(Events.events.get(LoginPage.db.currentAccount.getTicket(i)).toStringBasic(),LoginPage.db.currentAccount.getTicket(i),true);
+        }
     }
 
-    public void addTicket(String ticketInfo, String code){
+    public void addTicket(String ticketInfo, String code,boolean datab){
         tickets.add(ticketInfo);
         codes.add(code);
+
+        if(!datab){
+            LoginPage.db.addTicket(code,this.getApplicationContext());
+        }
         // Create the adapter
         RecyclerView.Adapter adapter = new TicketListAdapter(TicketPageMain.this, codes, tickets,this);
         recyclerView.setAdapter(adapter);

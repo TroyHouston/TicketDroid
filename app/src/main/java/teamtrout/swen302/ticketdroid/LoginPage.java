@@ -13,7 +13,7 @@ import android.widget.EditText;
 
 public class LoginPage extends Activity {
 
-    Database db;
+    static Database db;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,7 +55,7 @@ public class LoginPage extends Activity {
 
         if (db.validUser(user.toString(), password.toString())){
             Log.w("Worked", "good");
-
+            db.setUser(user.toString());
             //Go to ticketScreen if successful
             Intent intent = new Intent(this, TicketPageMain.class);
 
