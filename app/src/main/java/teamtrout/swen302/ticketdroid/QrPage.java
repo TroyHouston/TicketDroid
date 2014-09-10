@@ -14,7 +14,7 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import android.graphics.Bitmap;
 import android.graphics.Color;
-import android.widget.Toast;
+import android.widget.TextView;
 
 
 public class QrPage extends Activity {
@@ -30,6 +30,8 @@ public class QrPage extends Activity {
         String code = bundle.getString("code");
         qrifyString(code);
         Log.d("working:  "," " + code);
+        //Set detailed ticket Info
+        setTicketInfo(code);
     }
 
     @Override
@@ -68,5 +70,10 @@ public class QrPage extends Activity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    public void setTicketInfo(String code){
+        TextView ticketInfo = (TextView) findViewById(R.id.ticketInfo);
+        ticketInfo.setText((Events.events.get(code)).toStringDetailed());
     }
 }
