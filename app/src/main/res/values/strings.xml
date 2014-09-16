@@ -7,7 +7,7 @@
     <string name="dialog_title">New Ticket</string>
     <string name="ticket_code">Ticket Code</string>
     <string name="title_activity_landing_page">LandingPage</string>
-    <string name="introText">&quot;This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n&quot;</string>
+    <string name="introText">TicketDroid was created to remove the physical ticket limitation for any event, allowing for a modern solution that utilises one of the most used devices on the planet. \n\nDesigned with simplicity and ease of use in mind, the application allows for the adding of tickets with a simple code entering system, which then adds the ticket to your account. After this you can access the ticket at any time and when you wish to use it for an event you can simply show the QR Code to a reader.</string>
     <string name="loginButton">Login</string>
     <string name="registerButton">Register</string>
     <string name="title_activity_login_page">LoginPage</string>
