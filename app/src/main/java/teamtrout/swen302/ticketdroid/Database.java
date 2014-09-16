@@ -77,8 +77,8 @@ public class Database {
 
         if(!dbFile.exists()) {
             try{
-                writeToTicketFile(context);}
-            catch (Exception IOException){}
+                writeToTicketFile(context);
+            } catch (Exception IOException){}
             return true;
         }
         try {
@@ -140,7 +140,7 @@ public class Database {
        StringBuilder sb = new StringBuilder();
         Boolean first = true;
         for(Map.Entry<String,Account> entry:database.entrySet()){
-            if(!first) sb.append("\n,");
+            if(!first) sb.append("\n");
             else first = false;
             sb.append("user");
             sb.append("\nusername "+entry.getKey());

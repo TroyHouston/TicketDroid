@@ -88,9 +88,7 @@
     <orderEntry type="library" exported="" name="palette-v7-21.0.0-rc1" level="project" />
     <orderEntry type="library" exported="" name="core-3.1.0" level="project" />
     <orderEntry type="library" exported="" name="support-v13-21.0.0-rc1" level="project" />
-    <orderEntry type="library" exported="" name="bolts-android-1.1.2" level="project" />
     <orderEntry type="library" exported="" name="android-core-3.1.0" level="project" />
-    <orderEntry type="module" module-name="facebook" exported="" />
   </component>
 </module>
 
