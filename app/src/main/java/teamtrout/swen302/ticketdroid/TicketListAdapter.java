@@ -1,9 +1,10 @@
 package teamtrout.swen302.ticketdroid;
 
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
@@ -14,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -43,6 +43,9 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         // Create a new view by inflating the row item xml.
         View v = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.item_row, parent, false);
+
+        v.setLongClickable(true);
+        v.setClickable(true);
 
         // Set the view to the ViewHolder
         ViewHolder holder = new ViewHolder(v);
@@ -114,15 +117,34 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     // Implement OnLongClick listener. Long Clicked items is removed from list.
     @Override
     public boolean onLongClick(View view) {
-        ViewHolder holder = (ViewHolder) view.getTag();
-        if (view.getId() == holder.mNameTextView.getId()) {
-            tickets.remove(holder.getPosition());
+        final ViewHolder holder = (ViewHolder) view.getTag();
 
-            // Call this method to refresh the list and display the "updated" list
-            notifyDataSetChanged();
+        if (tickets.get(holder.getPosition()) != null) {
+            final String[] event = tickets.get(holder.getPosition()).split("\\r?\\n");
 
-            Toast.makeText(sContext, "Item " + holder.mNameTextView.getText() + " has been removed from list",
-                    Toast.LENGTH_SHORT).show();
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(sContext);
+
+            alertDialogBuilder.setMessage("Do you want to delete " + event[0] + " " + event[1])
+                    .setCancelable(false)
+                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    })
+                    .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            LoginPage.db.removeTicket(holder.getPosition(), sContext);
+
+                            tickets.remove(holder.getPosition());
+                            notifyDataSetChanged();
+
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
+
         }
         return false;
     }

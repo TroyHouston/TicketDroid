@@ -23,6 +23,16 @@ public class Database {
         load(context);
     }
 
+    public void removeTicket(int ticket, Context context) {
+        currentAccount.deleteTicket(ticket);
+
+        try {
+            writeToTicketFile(context);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean load(Context context){
         File dbFile = new File(context.getFilesDir(),"database");
 
@@ -178,7 +188,7 @@ public class Database {
         return true;
     }
 
-        public boolean addTicket(String ticket, Context context){
+    public boolean addTicket(String ticket, Context context){
 
         database.get(currentAccount.getUser()).addTicket(ticket);
 
