@@ -43,7 +43,7 @@ public class AddTicketDialog extends DialogFragment {
 
                         //If QR code is valid add ticket (cant add same ticket)
                         if (Events.validTicket(enteredCode)
-                                && !TicketPageMainOld.codes.contains(enteredCode)) {
+                                && !TicketPageMain.codes.contains(enteredCode)) {
                             String ticketInfo = (Events.events.get(enteredCode)).toStringBasic();
                             parent.addTicket(ticketInfo, enteredCode, false);
                         } else {
