@@ -21,5 +21,8 @@
     <string name="title_activity_ticket_pages">TicketPages</string>
     <string name="title_activity_ticket_page_main">TicketPageMain</string>
     <string name="get_started">To get started, log in using Facebook</string>
+    <string name="app_id">352569724903085</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
