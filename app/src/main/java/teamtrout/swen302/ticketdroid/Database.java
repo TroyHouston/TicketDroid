@@ -23,6 +23,16 @@ public class Database {
         load(context);
     }
 
+    public void removeTicket(int ticket, Context context) {
+        currentAccount.deleteTicket(ticket);
+
+        try {
+            writeToTicketFile(context);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     public boolean load(Context context){
         File dbFile = new File(context.getFilesDir(),"database");
 
@@ -77,8 +87,8 @@ public class Database {
 
         if(!dbFile.exists()) {
             try{
-                writeToTicketFile(context);}
-            catch (Exception IOException){}
+                writeToTicketFile(context);
+            } catch (Exception IOException){}
             return true;
         }
         try {
@@ -140,7 +150,7 @@ public class Database {
        StringBuilder sb = new StringBuilder();
         Boolean first = true;
         for(Map.Entry<String,Account> entry:database.entrySet()){
-            if(!first) sb.append("\n,");
+            if(!first) sb.append("\n");
             else first = false;
             sb.append("user");
             sb.append("\nusername "+entry.getKey());
@@ -178,7 +188,7 @@ public class Database {
         return true;
     }
 
-        public boolean addTicket(String ticket, Context context){
+    public boolean addTicket(String ticket, Context context){
 
         database.get(currentAccount.getUser()).addTicket(ticket);
 

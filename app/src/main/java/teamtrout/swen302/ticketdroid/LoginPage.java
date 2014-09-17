@@ -1,6 +1,8 @@
 package teamtrout.swen302.ticketdroid;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -60,6 +62,20 @@ public class LoginPage extends Activity {
             Intent intent = new Intent(this, TicketPageMain.class);
 
             startActivity(intent);
+        } else {
+            AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
+            alertDialogBuilder.setTitle("Invalid Account");
+
+            alertDialogBuilder.setMessage("Invalid username or password.")
+                    .setCancelable(false)
+                    .setPositiveButton("Ok", new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialogInterface, int i) {
+                            dialogInterface.cancel();
+                        }
+                    });
+
+            AlertDialog alertDialog = alertDialogBuilder.create();
+            alertDialog.show();
         }
 
         Log.w("Worked", "Not");
@@ -95,7 +111,7 @@ public class LoginPage extends Activity {
     }
 
     public void goToTicketPage(View view){
-        Intent intent = new Intent(this, TicketPageMain.class);
+        Intent intent = new Intent(this, TicketPageMainOld.class);
 
         startActivity(intent);
     }
