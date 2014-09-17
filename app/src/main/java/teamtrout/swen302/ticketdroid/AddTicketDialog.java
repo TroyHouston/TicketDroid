@@ -10,15 +10,17 @@ import android.view.LayoutInflater;
 import android.widget.Button;
 import android.widget.EditText;
 
+import static teamtrout.swen302.ticketdroid.TicketPageMain.currentTicketFragment;
+
 /**
  * Created by Troy on 20/08/2014.
  * Git error.
  */
 public class AddTicketDialog extends DialogFragment {
 
-    TicketPageMain parent;
+    currentTicketFragment parent;
 
-    AddTicketDialog(TicketPageMain parent) {
+    AddTicketDialog(currentTicketFragment parent) {
         this.parent = parent;
     }
 
@@ -41,7 +43,7 @@ public class AddTicketDialog extends DialogFragment {
 
                         //If QR code is valid add ticket (cant add same ticket)
                         if (Events.validTicket(enteredCode)
-                                && !TicketPageMain.codes.contains(enteredCode)) {
+                                && !TicketPageMainOld.codes.contains(enteredCode)) {
                             String ticketInfo = (Events.events.get(enteredCode)).toStringBasic();
                             parent.addTicket(ticketInfo, enteredCode, false);
                         } else {
