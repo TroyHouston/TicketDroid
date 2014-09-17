@@ -171,6 +171,7 @@ public class Database {
      */
     public boolean loadAccount(Context context, String user, String password) {
         if(database.containsKey(user)){
+
             return false;
         }
         //Check max length?
