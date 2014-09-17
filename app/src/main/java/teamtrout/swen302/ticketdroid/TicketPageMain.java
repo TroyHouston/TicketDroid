@@ -2,9 +2,9 @@ package teamtrout.swen302.ticketdroid;
 
 import android.app.ActionBar;
 import android.app.FragmentTransaction;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -214,7 +214,7 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
                 LoginPage.db.addTicket(code, testma.getApplicationContext());
             }
             // Create the adapter
-            RecyclerView.Adapter adapter = new TicketListAdapter(this.getActivity().getApplicationContext(), codes, tickets, testma);
+            RecyclerView.Adapter adapter = new TicketListAdapter(testma, codes, tickets, testma);
             recyclerView.setAdapter(adapter);
         }
     }

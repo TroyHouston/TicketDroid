@@ -93,7 +93,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         //}
     }
 
-    // Return the size of your dataset (invoked by the layout manager)
+    /* Return the size of your data set (invoked by the layout manager) */
     @Override
     public int getItemCount() {
         return tickets.size();
