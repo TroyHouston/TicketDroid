@@ -7,7 +7,7 @@
     <string name="dialog_title">New Ticket</string>
     <string name="ticket_code">Ticket Code</string>
     <string name="title_activity_landing_page">LandingPage</string>
-    <string name="introText">&quot;This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n&quot;</string>
+    <string name="introText">"This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n This application allows users to store their tickets and use their tickets in event scenarios.\n"</string>
     <string name="loginButton">Login</string>
     <string name="registerButton">Register</string>
     <string name="title_activity_login_page">LoginPage</string>
@@ -21,5 +21,8 @@
     <string name="title_activity_ticket_pages">TicketPages</string>
     <string name="title_activity_ticket_page_main">TicketPageMain</string>
     <string name="get_started">To get started, log in using Facebook</string>
+    <string name="app_id">352569724903085</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="hello_world">Hello world!</string>
 
 </resources>
