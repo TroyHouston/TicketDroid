@@ -92,7 +92,7 @@ public class RegisterPage extends Activity {
                             dialogInterface.cancel();
                         }
                     });
-        } else if (splitEmail[0].length() < 1 || splitEmail[1].length() < 1 || splitEmail.length != 2) { // invalid email
+        } else if (splitEmail.length != 2 || splitEmail[0].length() < 1 || splitEmail[1].length() < 1 ) { // invalid email
                 alertDialogBuilder.setMessage("Invalid Email Address")
                         .setCancelable(false)
                         .setPositiveButton("Ok", new DialogInterface.OnClickListener() {

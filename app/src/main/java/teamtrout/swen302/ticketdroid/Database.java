@@ -134,7 +134,9 @@ public class Database {
 
     public boolean load(Context context){
         File dbFile = new File(context.getFilesDir(),"database");
-
+        //dbFile.delete();
+        //File dbFile2 = new File(context.getFilesDir(),"ticket");
+        //dbFile2.delete();
         if(!dbFile.exists()) {
             try{
                 writeToAccountFile(context);
