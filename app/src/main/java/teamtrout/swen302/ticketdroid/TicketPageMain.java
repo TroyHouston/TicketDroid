@@ -24,11 +24,11 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
     AppSectionsPagerAdapter mAppSectionsPagerAdapter;
     ViewPager mViewPager;
     // Data set used by the adapter. This data will be displayed.
-    static ArrayList<String> tickets = new ArrayList<String>();
-    static ArrayList<String> codes = new ArrayList<String>();
+
     static String[] title = new String[]{"Current","History"};
 
     currentTicketFragment ticketFrag = new currentTicketFragment(this);
+    historyTicketFragment histoyFrag = new historyTicketFragment(this);
 
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,13 +36,13 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
 
         // Create the adapter that will return a fragment for each of the three primary sections
         // of the app.
-        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager(),ticketFrag);
+        mAppSectionsPagerAdapter = new AppSectionsPagerAdapter(getSupportFragmentManager(),ticketFrag,histoyFrag);
 
         // Set up the action bar.
         final ActionBar actionBar = getActionBar();
 
         // Specify that the Home/Up button should not be enabled, since there is no hierarchical
-        // parent.
+        // currentParent.
         actionBar.setHomeButtonEnabled(false);
 
         // Specify that we will be displaying tabs in the action bar.
@@ -89,7 +89,7 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
+        // as you specify a currentParent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         switch(id) {
@@ -124,11 +124,13 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
      */
     public static class AppSectionsPagerAdapter extends FragmentPagerAdapter {
 
-        currentTicketFragment ta;
+        currentTicketFragment currentFrag;
+        historyTicketFragment histoyFrag;
 
-        public AppSectionsPagerAdapter(FragmentManager fm,currentTicketFragment ta) {
+        public AppSectionsPagerAdapter(FragmentManager fm,currentTicketFragment currentFrag, historyTicketFragment histoyFrag) {
             super(fm);
-            this.ta = ta;
+            this.currentFrag = currentFrag;
+            this.histoyFrag = histoyFrag;
         }
 
         @Override
@@ -137,12 +139,11 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
                 case 0:
                     // The first section of the app is the most interesting -- it offers
                     // a launchpad into the other demonstrations in this example application.
-                    return ta;
+                    return currentFrag;
 
                 case 1:
                     // The other sections of the app are dummy placeholders.
-                    Fragment fragment = new historyFragment();
-                    return fragment;
+                    return histoyFrag;
                 default:
                     return null;
             }
@@ -160,15 +161,47 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
     }
 
 
-    public static class historyFragment extends Fragment {
+    public static class historyTicketFragment extends Fragment {
 
-        public static final String ARG_SECTION_NUMBER = "section_number";
+        TicketPageMain testma;
+
+         private ArrayList<String> tickets = new ArrayList<String>();
+         private ArrayList<String> codes = new ArrayList<String>();
+
+        public historyTicketFragment(TicketPageMain testma){
+            this.testma = testma;
+        }
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
+
             View rootView = inflater.inflate(R.layout.history_ticket_page, container, false);
+
+
+            recyclerView = (RecyclerView) rootView.findViewById(R.id.my_recycler_view_hist);
+            // do not change the size of the RecyclerView
+            recyclerView.setHasFixedSize(true);
+
+            // use a linear layout manager
+            RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(testma.getApplicationContext());
+            recyclerView.setLayoutManager(mLayoutManager);
+
             return rootView;
+        }
+
+        RecyclerView recyclerView;
+
+        public void addTicket(String ticketInfo, String code,boolean datab){
+            tickets.add(ticketInfo);
+            codes.add(code);
+
+            if(!datab){
+                LoginPage.db.addTicket(code, testma.getApplicationContext());
+            }
+            // Create the adapter
+            RecyclerView.Adapter adapter = new TicketListAdapter(testma, codes, tickets, testma);
+            recyclerView.setAdapter(adapter);
         }
     }
 
@@ -177,6 +210,9 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
 
 
         TicketPageMain testma;
+
+        static ArrayList<String> tickets = new ArrayList<String>();
+        static ArrayList<String> codes = new ArrayList<String>();
 
         public currentTicketFragment(TicketPageMain testma){
             this.testma = testma;
