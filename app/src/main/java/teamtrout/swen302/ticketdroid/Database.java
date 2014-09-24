@@ -203,7 +203,10 @@ public class Database {
                     f.next();
                     String user = f.next();
                     Account acc = database.get(user);
-                    next = f.next();
+                    if(f.hasNext())
+                        next = f.next();
+                    else
+                        next = null;
                     while(next != null && !next.equals("user") ){
                         acc.addTicket(next);
                         if(f.hasNext())

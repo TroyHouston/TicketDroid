@@ -23,12 +23,12 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         View.OnLongClickListener{
 
     private ArrayList<String> tickets;
-    private ArrayList<String> codes;
+    private ArrayList<TicketPageMain.TicketInfo> codes;
     private static Context sContext;
     private TicketPageMain callingActivity;
 
     // Adapter's Constructor
-    public TicketListAdapter(Context context,ArrayList<String> codes, ArrayList<String> tickets, TicketPageMain callingActivity) {
+    public TicketListAdapter(Context context,ArrayList<TicketPageMain.TicketInfo> codes, ArrayList<String> tickets, TicketPageMain callingActivity) {
         this.tickets = tickets;
         this.codes = codes;
         sContext = context;
@@ -81,7 +81,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
         //Set image of ticket
 
         ImageView img= (ImageView) holder.mCardView.findViewById(R.id.ticketImage);
-        Bitmap bitmapImage = BitmapFactory.decodeResource(img.getResources(),(Events.events.get(codes.get(holder.getPosition()))).getImage());
+        Bitmap bitmapImage = BitmapFactory.decodeResource(img.getResources(),(Events.events.get(codes.get(holder.getPosition()).code)).getImage());
         Bitmap scaledImage = Bitmap.createScaledBitmap(bitmapImage, 150,150,true);
         img.setImageBitmap(scaledImage);
 
@@ -108,7 +108,7 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
             Intent i = new Intent(callingActivity,QrPage.class);
             //give detailed ticket info to QR class
             Bundle bundle = new Bundle();
-            bundle.putString("code", codes.get(holder.getPosition()));
+            bundle.putString("code", codes.get(holder.getPosition()).code);
             i.putExtras(bundle);
             callingActivity.startActivity(i);
         }
@@ -134,10 +134,11 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
                     .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialogInterface, int i) {
                             LoginPage.db.removeTicket(holder.getPosition(), sContext);
-
-                            tickets.remove(holder.getPosition());
+                            //.remove(holder.getPosition());
+                            //tickets.remove(holder.getPosition());
+                            callingActivity.getCurrentTicket().removeTicket(tickets.get(holder.getPosition()),
+                                    codes.get(holder.getPosition()).code);
                             notifyDataSetChanged();
-
                             dialogInterface.cancel();
                         }
                     });

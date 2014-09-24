@@ -20,7 +20,6 @@ public class AddTicketDialog extends DialogFragment {
 
     currentTicketFragment currentParent;
 
-
     AddTicketDialog(currentTicketFragment currentParent) {
         this.currentParent = currentParent;
     }
@@ -44,7 +43,7 @@ public class AddTicketDialog extends DialogFragment {
 
                         //If QR code is valid add ticket (cant add same ticket)
                         if (Events.validTicket(enteredCode)
-                                && !currentTicketFragment.codes.contains(enteredCode)) {
+                                && !currentTicketFragment.codes.contains(new TicketPageMain.TicketInfo(enteredCode, enteredCode))) {
                             String ticketInfo = (Events.events.get(enteredCode)).toStringBasic();
                             currentParent.addTicket(ticketInfo, enteredCode, false);
                         } else {

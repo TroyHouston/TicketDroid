@@ -6,7 +6,7 @@
         res/values-v11/styles.xml on API 14+ devices.
 
     -->
-    <style name="AppTheme" parent="@android:style/Theme.Material.Light.DarkActionBar">
+    <style name="AppTheme" currentParent="@android:style/Theme.Material.Light.DarkActionBar">
 
         <!-- Main theme colors -->
         <!-- your app's branding color (for the app bar) -->

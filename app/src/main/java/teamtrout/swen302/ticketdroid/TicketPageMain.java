@@ -17,6 +17,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 
 
 public class TicketPageMain extends FragmentActivity implements ActionBar.TabListener{
@@ -76,7 +79,9 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
 
     }
 
-
+    public currentTicketFragment getCurrentTicket(){
+        return ticketFrag;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -166,7 +171,8 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
         TicketPageMain testma;
 
          private ArrayList<String> tickets = new ArrayList<String>();
-         private ArrayList<String> codes = new ArrayList<String>();
+
+         private ArrayList<TicketInfo> codes = new ArrayList<TicketInfo>();
 
         public historyTicketFragment(TicketPageMain testma){
             this.testma = testma;
@@ -192,9 +198,9 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
 
         RecyclerView recyclerView;
 
-        public void addTicket(String ticketInfo, String code,boolean datab){
+        public void addTicket(String ticketInfo, String code,Date date, boolean datab){
             tickets.add(ticketInfo);
-            codes.add(code);
+            codes.add(new TicketInfo(ticketInfo,code));
 
             if(!datab){
                 LoginPage.db.addTicket(code, testma.getApplicationContext());
@@ -212,7 +218,7 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
         TicketPageMain testma;
 
         static ArrayList<String> tickets = new ArrayList<String>();
-        static ArrayList<String> codes = new ArrayList<String>();
+        static ArrayList<TicketInfo> codes = new ArrayList<TicketInfo>();
 
         public currentTicketFragment(TicketPageMain testma){
             this.testma = testma;
@@ -233,7 +239,8 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(testma.getApplicationContext());
             recyclerView.setLayoutManager(mLayoutManager);
             for(int i = 0 ; i < LoginPage.db.currentAccount.ticketSize(); i ++){
-                addTicket(Events.events.get(LoginPage.db.currentAccount.getTicket(i)).toStringBasic(), LoginPage.db.currentAccount.getTicket(i), true);
+                addTicket(Events.events.get(LoginPage.db.currentAccount.getTicket(i)).toStringBasic(),
+                        LoginPage.db.currentAccount.getTicket(i),  true);
             }
 
 
@@ -242,16 +249,93 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
 
         RecyclerView recyclerView;
 
-        public void addTicket(String ticketInfo, String code,boolean datab){
+        public void addTicket(String ticketInfo, String code, boolean datab){
             tickets.add(ticketInfo);
-            codes.add(code);
+            codes.add(new TicketInfo(ticketInfo,code));
 
+            Collections.sort(tickets, new Comparator<String>() {
+                @Override
+                public int compare(String s, String s2) {
+
+                   String[] date1 = s.split("\n");
+                   String[] date2 = s2.split("\n");
+
+                   String[] splitDate1 = date1[1].split("/");
+                   String[] splitDate2 = date2[1].split("/");
+
+                    if(!splitDate1[2].equals(splitDate2[2]))
+                        return splitDate1[2].compareTo(splitDate2[2]);
+
+                    if(!splitDate1[1].equals(splitDate2[1]))
+                        return splitDate1[1].compareTo(splitDate2[1]);
+
+                    return splitDate1[0].compareTo(splitDate2[0]);
+
+                }
+            });
+
+            Collections.sort(codes, new Comparator<TicketInfo>() {
+                @Override
+                public int compare(TicketInfo s, TicketInfo s2) {
+
+                    String[] date1 = s.info.split("\n");
+                    String[] date2 = s2.info.split("\n");
+
+                    String[] splitDate1 = date1[1].split("/");
+                    String[] splitDate2 = date2[1].split("/");
+
+                    if(!splitDate1[2].equals(splitDate2[2]))
+                        return splitDate1[2].compareTo(splitDate2[2]);
+
+                    if(!splitDate1[1].equals(splitDate2[1]))
+                        return splitDate1[1].compareTo(splitDate2[1]);
+
+                    return splitDate1[0].compareTo(splitDate2[0]);
+
+                }
+            });
             if(!datab){
                 LoginPage.db.addTicket(code, testma.getApplicationContext());
             }
             // Create the adapter
             RecyclerView.Adapter adapter = new TicketListAdapter(testma, codes, tickets, testma);
             recyclerView.setAdapter(adapter);
+        }
+
+        public void removeTicket(String ticketInfo, String code) {
+            tickets.remove(ticketInfo);
+            codes.remove(new TicketInfo(ticketInfo, code));
+            // Create the adapter
+            RecyclerView.Adapter adapter = new TicketListAdapter(testma, codes, tickets, testma);
+            recyclerView.setAdapter(adapter);
+        }
+    }
+
+    public static class TicketInfo{
+
+        public String info;
+        public String code;
+
+        public TicketInfo(String info, String code){
+            this.info = info;
+            this.code = code;
+        }
+
+        @Override
+        public boolean equals(Object o) {
+
+            if (o == null || getClass() != o.getClass()) return false;
+
+            TicketInfo that = (TicketInfo) o;
+
+            if (!code.equals(that.code)) return false;
+
+            return true;
+        }
+
+        @Override
+        public int hashCode() {
+            return code.hashCode();
         }
     }
 
