@@ -239,10 +239,19 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
             RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(testma.getApplicationContext());
             recyclerView.setLayoutManager(mLayoutManager);
             for(int i = 0 ; i < LoginPage.db.currentAccount.ticketSize(); i ++){
-                addTicket(Events.events.get(LoginPage.db.currentAccount.getTicket(i)).toStringBasic(),
-                        LoginPage.db.currentAccount.getTicket(i),  true);
-            }
+                String info = Events.events.get(LoginPage.db.currentAccount.getTicket(i)).toStringBasic();
 
+                String[] date1 = info.split("\n");
+                String[] splitDate1 = date1[1].split("/");
+
+                Date date = new Date(Integer.valueOf(splitDate1[0]),
+                        Integer.valueOf(splitDate1[1]),
+                        Integer.valueOf(splitDate1[2]));
+
+                //if () {
+                    //addTicket(info,LoginPage.db.currentAccount.getTicket(i), true);
+                //}
+            }
 
             return rootView;
         }
