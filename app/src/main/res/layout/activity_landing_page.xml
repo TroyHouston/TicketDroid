@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/introText"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="31dp"
+        android:layout_marginBottom="10dp"
         android:layout_marginLeft="20dp"
         android:background="?android:attr/selectableItemBackground"
         android:text="@string/registerButton"
@@ -40,7 +40,7 @@
         android:gravity="center_horizontal"
         android:layout_above="@+id/registerButton"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:onClick="loginWithFB" />
 
     <TextView
@@ -49,8 +49,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="10dp"
         android:text="@string/introText"
-        />
+        android:textSize="18dp" />
 
 </RelativeLayout>
