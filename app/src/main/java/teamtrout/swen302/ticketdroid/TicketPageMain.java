@@ -241,17 +241,51 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
             for(int i = 0 ; i < LoginPage.db.currentAccount.ticketSize(); i ++){
                 String info = Events.events.get(LoginPage.db.currentAccount.getTicket(i)).toStringBasic();
 
-                String[] date1 = info.split("\n");
-                String[] splitDate1 = date1[1].split("/");
+                addTicket(info,LoginPage.db.currentAccount.getTicket(i),true);
 
-                Date date = new Date(Integer.valueOf(splitDate1[0]),
-                        Integer.valueOf(splitDate1[1]),
-                        Integer.valueOf(splitDate1[2]));
-
-                //if () {
-                    //addTicket(info,LoginPage.db.currentAccount.getTicket(i), true);
-                //}
             }
+
+            Collections.sort(tickets, new Comparator<String>() {
+                @Override
+                public int compare(String s, String s2) {
+
+                    String[] date1 = s.split("\n");
+                    String[] date2 = s2.split("\n");
+
+                    String[] splitDate1 = date1[1].split("/");
+                    String[] splitDate2 = date2[1].split("/");
+
+                    if(!splitDate1[2].equals(splitDate2[2]))
+                        return splitDate1[2].compareTo(splitDate2[2]);
+
+                    if(!splitDate1[1].equals(splitDate2[1]))
+                        return splitDate1[1].compareTo(splitDate2[1]);
+
+                    return splitDate1[0].compareTo(splitDate2[0]);
+
+                }
+            });
+
+            Collections.sort(codes, new Comparator<TicketInfo>() {
+                @Override
+                public int compare(TicketInfo s, TicketInfo s2) {
+
+                    String[] date1 = s.info.split("\n");
+                    String[] date2 = s2.info.split("\n");
+
+                    String[] splitDate1 = date1[1].split("/");
+                    String[] splitDate2 = date2[1].split("/");
+
+                    if(!splitDate1[2].equals(splitDate2[2]))
+                        return splitDate1[2].compareTo(splitDate2[2]);
+
+                    if(!splitDate1[1].equals(splitDate2[1]))
+                        return splitDate1[1].compareTo(splitDate2[1]);
+
+                    return splitDate1[0].compareTo(splitDate2[0]);
+
+                }
+            });
 
             return rootView;
         }

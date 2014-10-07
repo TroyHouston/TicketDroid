@@ -186,6 +186,11 @@ public class Database {
 
     public boolean loadTickets(Context context){
         File dbFile = new File(context.getFilesDir(),"ticket");
+//        File dbFile2 = new File(context.getFilesDir(),"database");
+//
+//        dbFile.delete();
+//        dbFile2.delete();
+
 
         if(!dbFile.exists()) {
             try{
