@@ -11,7 +11,7 @@ public class Events {
             events.put("katy", new Event(R.drawable.katy,"14/12/2014","Katy Perry","8:30 PM","TSB Arena","5B"));
             events.put("john2014", new Event(R.drawable.johnlegend,"28/12/2014","John Legend","8:30 PM","Westpac Stadium","26E"));
             events.put("ACDC", new Event(R.drawable.acdc,"18/11/2014","ACDC","9:30 PM","WestPac","No Seating"));
-            events.put("em2014", new Event(R.drawable.em,"31/12/2014","Eminem","9:30 PM","RNV","No Seating"));
+            events.put("em2014", new Event(R.drawable.em,"31/12/2013","Eminem","9:30 PM","RNV","No Seating"));
 
     }
 

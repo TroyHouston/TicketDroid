@@ -119,6 +119,10 @@ public class TicketListAdapter extends RecyclerView.Adapter<TicketListAdapter.Vi
     public boolean onLongClick(View view) {
         final ViewHolder holder = (ViewHolder) view.getTag();
 
+        if(callingActivity.getPage() == 1){
+            return false;
+        }
+
         if (tickets.get(holder.getPosition()) != null) {
             final String[] event = tickets.get(holder.getPosition()).split("\\r?\\n");
 
