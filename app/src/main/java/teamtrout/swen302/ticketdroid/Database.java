@@ -284,7 +284,7 @@ public class Database {
         Boolean first = true;
         for(Map.Entry<String,Account> entry:database.entrySet()){
             Account account = database.get(entry.getKey());
-            if(!first) sb.append("\n,");
+            if(!first) sb.append("\n");
             else first = false;
             sb.append("user");
             sb.append("\nusername "+entry.getKey());
