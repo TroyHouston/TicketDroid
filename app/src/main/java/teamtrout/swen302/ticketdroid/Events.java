@@ -53,6 +53,10 @@ public class Events {
             return String.format("%s\t%s\n%s\t%s\nSeat:%s", name, date, location,time,seat);
         }
 
+        public String getEventLocation() {
+            return location;
+        }
+
        public int getImage(){
            return image;
        }

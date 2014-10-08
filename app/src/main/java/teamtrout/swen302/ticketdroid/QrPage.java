@@ -1,13 +1,16 @@
 package teamtrout.swen302.ticketdroid;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.widget.CardView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,8 +19,12 @@ import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 
+import java.util.Locale;
+
 
 public class QrPage extends Activity {
+
+    String code;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,7 +34,7 @@ public class QrPage extends Activity {
 
         //Get detailed ticket Info
         Bundle bundle = getIntent().getExtras();
-        String code = bundle.getString("code");
+        code = bundle.getString("code");
         qrifyString(code);
         Log.d("working:  "," " + code);
         //Set detailed ticket Info
@@ -70,6 +77,14 @@ public class QrPage extends Activity {
         } catch (WriterException e) {
             e.printStackTrace();
         }
+    }
+
+    public void findOnMap(View view) {
+
+        String address = (Events.events.get(code)).getEventLocation();
+        String uri = String.format(Locale.ENGLISH, "geo:0,0?q=%s", address);
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(uri));
+        view.getContext().startActivity(intent);
     }
 
     public void setTicketInfo(String code){
