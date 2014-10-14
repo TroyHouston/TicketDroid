@@ -95,6 +95,11 @@ public class TicketPageMain extends FragmentActivity implements ActionBar.TabLis
     }
 
     @Override
+    public void onBackPressed() {
+        return;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
